@@ -1,7 +1,8 @@
 ---
-title: 2023_03_30_ProgressBar+Comment 구현
+title: 2023_03_30_ProgressBar + Comment 구현
 date: 2023-03-30
-description: 스크롤에 따른 Progress Bar와 giscus댓글 기능 구현
+description: 스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현
+tags: [Next.js, React, TailwindCss, Giscus, progressbar, comment]
 ---
 
 ---
@@ -10,14 +11,14 @@ description: 스크롤에 따른 Progress Bar와 giscus댓글 기능 구현
 
 ### ProgressBar
 
-	이야 이거 멋있다!
+    이야 이거 멋있다!
 
 참고용으로 다른 분들의 블로그를 찾아볼때마다 눈에 들어오던것이었다.
 사실 막 그닥 필요한 장치는 아니지만 막 어려워 보이지 않아서 만들어보기로 했다
 
-### Comment 
+### Comment
 
-	블로그라면 있어야지!
+    블로그라면 있어야지!
 
 기술블로그니까! 있어야지! 라는 마음으로 도입해보기로 했다.
 
@@ -32,6 +33,7 @@ progressbar의 작동원리는 이렇다.
 3. 읽어온 스크롤 퍼센트(?)에 따라 ProgressBar의 X를 Translate를 통해 변화시킨다.
 
 전체 코드는 이렇다.
+
 ```
 import { useEffect, useState } from "react";
 const Progressbar = ()=> {
@@ -61,7 +63,6 @@ const getScrollPercentage = () => {
 export default Progressbar
 ```
 
-
 여기서 `useEffect` 부분을 보면 `getScrollPercentage()`가 한번 호출 되고 난 뒤 윈도우리스너를 등록하는데
 이는 글이 너무 짧아서 스크롤이 발생하지 않는 경우 Progressbar가 0%에서 고정되어있는 현상을 해결하기 위해 작성되었다.
 
@@ -89,13 +90,13 @@ const getScrollPercentage = () => {
 tailwindCss 를 사용했으며
 `fixed top-0 left-0 right-0`는 progressbar를 최상단에 고정하는 부분이다.  
 `bg-red-500 h-1`는 progressbar를 빨간색으로 하고, 높이를 정하는 부분이다.  
-```style={{transform: `translateX(${(percentage - 100)}%)`}}```는 퍼센트에 따라서 길이를 변형시키는 코드이다.  
-```percentage - 100``` 인 이유는 왼쪽부터 오른쪽으로 진행해야 하기 때문이다.
+`` style={{transform: `translateX(${(percentage - 100)}%)`}} ``는 퍼센트에 따라서 길이를 변형시키는 코드이다.  
+`percentage - 100` 인 이유는 왼쪽부터 오른쪽으로 진행해야 하기 때문이다.
 (궁금하면 그냥 `percentage`해봐라 뭔 소리인지 이해할것이다.)
 
 이렇게 Next.js의 컴포넌트로 구현을 해두었다.
 
---- 
+---
 
 ### Comment
 
@@ -110,45 +111,47 @@ giscus를 이용하는 이유는 다음과 같다.
 간단하게 사용하는법을 적어두자면  
 [giscus페이지](https://giscus.app/ko)
 
-	1. 깃헙에서 Public으로 레파지토리를 하나 판다(블로그를 배포한다고 파둔 레파지토리가 Public이라면 그냥 그거 써도 된다.)
-	2. 토론 탭을 활성화 시킨다.(세팅 들어가서 General에서 쭉 내리다 보면 있다.)
-	3. giscus문서에 가서 필요한것들을 적는다.(문서 링크는 위쪽에 있다.)
-	4. 나온 값들을 일단 킵해둔다.
-	5. giscus 페키지를 설치한다.
-		(React나 Next.js라면 
-		yarn add @giscus/react  
-		or  
-		npm i @giscus/react)
-	를 통해 설치할수있다.
-	6.잘 쓴다.
+    1. 깃헙에서 Public으로 레파지토리를 하나 판다(블로그를 배포한다고 파둔 레파지토리가 Public이라면 그냥 그거 써도 된다.)
+    2. 토론 탭을 활성화 시킨다.(세팅 들어가서 General에서 쭉 내리다 보면 있다.)
+    3. giscus문서에 가서 필요한것들을 적는다.(문서 링크는 위쪽에 있다.)
+    4. 나온 값들을 일단 킵해둔다.
+    5. giscus 페키지를 설치한다.
+    	(React나 Next.js라면
+    	yarn add @giscus/react
+    	or
+    	npm i @giscus/react)
+    를 통해 설치할수있다.
+    6.잘 쓴다.
 
 다음은 전체 코드이다.
 
 ```javascript
-import Giscus from "@giscus/react"
+import Giscus from "@giscus/react";
 
-const Comment = () =>{
-return(
-<div className="border-t-[100px] border-transparent">
-<Giscus
-id="comments"
-repo="내 레파지토리에욧!"
-repoId="내 레파지토리 아이디에욧!"
-category="General"
-categoryId="문서에 기입할거 다 적으면 알아서 나와욧!"
-mapping="pathname"
-reactionsEnabled="1"
-emitMetadata="0"
-inputPosition="top"
-theme="light"
-lang="ko"
-loading="lazy"/>
-</div>
-);
-}
+const Comment = () => {
+  return (
+    <div className="border-t-[100px] border-transparent">
+      <Giscus
+        id="comments"
+        repo="내 레파지토리에욧!"
+        repoId="내 레파지토리 아이디에욧!"
+        category="General"
+        categoryId="문서에 기입할거 다 적으면 알아서 나와욧!"
+        mapping="pathname"
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="top"
+        theme="light"
+        lang="ko"
+        loading="lazy"
+      />
+    </div>
+  );
+};
 
 export default Comment;
 ```
+
 (진짜 뭐 없다...)
 
 이렇게 구현된 것들은 지금 이 포스트를 보고있는 지금 만나볼수 있다.

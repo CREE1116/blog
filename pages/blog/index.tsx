@@ -15,6 +15,8 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
             des={post.description}
             slug={post._raw.flattenedPath}
             key={post._id}
+            tags={post.tags}
+            imagesrc={post.image}
           />
         ))}
       </div>

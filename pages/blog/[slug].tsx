@@ -12,14 +12,17 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
     title: post.title,
     description: post.description,
     date: new Date(post.date).toISOString(),
+    tags: "#" + post.tags.join(" #"),
   };
 
   return (
     <>
       <Progressbar />
       <Container customMeta={customMeta}>
-        <div className="mt-10 prose">
-          <h1 className="text-sky-700">{post.title}</h1>
+        <div className="mt-10 prose dark:prose-invert">
+          <div className=" bg-gray-300 w-full h-[300px] items-center rounded-2xl">
+            <h1 className="text-sky-700">{post.title}</h1>
+          </div>
           <MDXComponent />
         </div>
         <Comment />

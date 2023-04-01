@@ -13,11 +13,14 @@ const Container = (props) => {
   };
 
   return (
-    <div className={`w-full flex flex-col items-center p-3 scroll-smooth`}>
+    <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{meta.title}</title>
         <link rel="icon" href="/java-jeans.jpg" />
         <meta content={meta.description} name="description" />
+        {meta.tags !== undefined ? (
+          <meta content={meta.tags} name="tags" />
+        ) : null}
         <meta property="og:site_name" content={meta.author} />
       </Head>
       <header className={`fixed top-0 left-0 right-0`}>

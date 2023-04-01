@@ -9,7 +9,7 @@ import { InferGetStaticPropsType } from "next";
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Container>
-      <div className={`my-5 w-full`}>
+      <div className={`my-5 w-full border-t-[12px] border-transparent`}>
         <div className={`relative contrast-100`}>
           <Image
             src={`/java-jeans.jpg`}
