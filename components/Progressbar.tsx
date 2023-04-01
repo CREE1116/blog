@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-const Progressbar = ()=> {
-    const [percentage, setPercentage] = useState(100);
+const Progressbar = () => {
+  const [percentage, setPercentage] = useState(100);
 
-const getScrollPercentage = () => {
+  const getScrollPercentage = () => {
     const scroll = document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
     const clientHeight = document.documentElement.clientHeight;
@@ -13,14 +13,16 @@ const getScrollPercentage = () => {
 
   useEffect(() => {
     getScrollPercentage();
-    window.addEventListener('scroll', getScrollPercentage);
-    return () => window.removeEventListener('scroll', getScrollPercentage);
+    window.addEventListener("scroll", getScrollPercentage);
+    return () => window.removeEventListener("scroll", getScrollPercentage);
   }, []);
-    return(
-        <div className="fixed top-0 left-0 right-0">
-            <div className="bg-red-500 h-1"
-            style={{transform: `translateX(${(percentage - 100)}%)`}}/>
-        </div>
-    )
-}
-export default Progressbar
+  return (
+    <div className="fixed top-0 left-0 right-0 bg-white">
+      <div
+        className="bg-red-500 h-1"
+        style={{ transform: `translateX(${percentage - 100}%)` }}
+      />
+    </div>
+  );
+};
+export default Progressbar;

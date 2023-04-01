@@ -16,14 +16,14 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <>
-    <Progressbar/>
-    <Container customMeta={customMeta}>
-      <div className="mt-10 prose">
-        <h1 className="text-sky-700">{post.title}</h1>
-        <MDXComponent />
-      </div>
-      <Comment/>
-    </Container>
+      <Progressbar />
+      <Container customMeta={customMeta}>
+        <div className="mt-10 prose">
+          <h1 className="text-sky-700">{post.title}</h1>
+          <MDXComponent />
+        </div>
+        <Comment />
+      </Container>
     </>
   );
 };

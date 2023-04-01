@@ -4,7 +4,6 @@ import metadata from "../data/metadata";
 import Nav from "./Nav";
 import Link from "next/link";
 
-
 const Container = (props) => {
   const meta = {
     title: metadata.title,
@@ -21,29 +20,30 @@ const Container = (props) => {
         <meta content={meta.description} name="description" />
         <meta property="og:site_name" content={meta.author} />
       </Head>
-      <header
-        className={`w-full max-w-3xl flex flex-row justify-between items-center my-1`}
-      >
-        <Link href="/">
-          <a className={'flex flex-row items-center'}>
-          <Image
-            src={`/java-jeans.jpg`}
-            alt="로고"
-            width={40}
-            height={40}
-            objectFit={`cover`}
-            className={`rounded-full`}
-          />
-          <span className={`mx-2 font-extralight text-lg`}>
-            {metadata.title}
-          </span>
-          </a>
-        </Link>
-        <Nav />
+      <header className={`fixed top-0 left-0 right-0`}>
+        <div
+          className={`w-full flex flex-row justify-between items-center my-1 bg-white`}
+        >
+          <Link href="/">
+            <a className={"flex flex-row items-center"}>
+              <Image
+                src={`/java-jeans.jpg`}
+                alt="로고"
+                width={40}
+                height={40}
+                objectFit={`cover`}
+                className={`rounded-full`}
+              />
+              <span className={`mx-2 font-extralight text-lg`}>
+                {metadata.title}
+              </span>
+            </a>
+          </Link>
+          <Nav />
+        </div>
       </header>
       <main className={`w-full max-w-3xl`}>{props.children}</main>
     </div>
-    
   );
 };
 
