@@ -1,4 +1,5 @@
 module.exports = {
-  siteUrl: "https://creesblog.vercel.app/",
+  siteUrl: "https://example.com",
   generateRobotsTxt: true,
+  sitemapSize: 7000,
 };

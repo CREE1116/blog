@@ -3,7 +3,6 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class", // Tailwindcss 3.0 default is 'media',  'class'
   theme: {
     extend: {},
   },
