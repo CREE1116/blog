@@ -17,7 +17,7 @@ const Progressbar = () => {
     return () => window.removeEventListener("scroll", getScrollPercentage);
   }, []);
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white">
+    <div className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800">
       <div
         className="bg-red-500 h-1"
         style={{ transform: `translateX(${percentage - 100}%)` }}

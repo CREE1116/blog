@@ -23,9 +23,11 @@ const Container = (props) => {
         ) : null}
         <meta property="og:site_name" content={meta.author} />
       </Head>
-      <header className={`fixed top-0 left-0 right-0`}>
+      <header
+        className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
+      >
         <div
-          className={`w-full flex flex-row justify-between items-center my-1 bg-white`}
+          className={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3`}
         >
           <Link href="/">
             <a className={"flex flex-row items-center"}>
@@ -42,10 +44,11 @@ const Container = (props) => {
               </span>
             </a>
           </Link>
+
           <Nav />
         </div>
       </header>
-      <main className={`w-full max-w-3xl`}>{props.children}</main>
+      <main className={`w-full max-w-3xl pt-8`}>{props.children}</main>
     </div>
   );
 };

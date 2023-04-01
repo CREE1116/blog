@@ -21,6 +21,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
             className={`rounded-3xl`}
           />
         </div>
+
         <RecentPosts posts={posts} />
       </div>
     </Container>
