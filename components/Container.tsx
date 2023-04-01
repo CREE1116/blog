@@ -3,6 +3,7 @@ import Head from "next/head";
 import metadata from "../data/metadata";
 import Nav from "./Nav";
 import Link from "next/link";
+import Togglebtn from "./Togglebtn";
 
 const Container = (props) => {
   const meta = {
@@ -44,7 +45,7 @@ const Container = (props) => {
               </span>
             </a>
           </Link>
-
+          <Togglebtn />
           <Nav />
         </div>
       </header>
