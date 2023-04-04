@@ -26,9 +26,9 @@ const Container = (props) => {
           <>
             <meta
               property="og:description"
-              content={meta.description + "\n" + meta.keyword}
+              content={meta.description + "\n#" + meta.keyword.join(" #")}
             />
-            <meta content={meta.keyword} name="keyword" />
+            <meta content={meta.keyword.join(", ")} name="keyword" />
           </>
         ) : (
           <meta property="og:description" content={meta.description} />
