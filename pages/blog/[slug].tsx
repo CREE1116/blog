@@ -12,7 +12,7 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
     title: post.title,
     description: post.description,
     date: new Date(post.date).toISOString(),
-    tags: "#" + post.tags.join(" #"),
+    keyword: post.tags.join(", "),
   };
 
   return (
