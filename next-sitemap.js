@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://example.com",
+  siteUrl: "https://cree-devblog.net",
   generateRobotsTxt: true,
   sitemapSize: 7000,
 };
