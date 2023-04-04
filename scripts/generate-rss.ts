@@ -7,6 +7,7 @@ import metadata from "../data/metadata";
 const master = {
   name: metadata.author,
   link: metadata.siteUrl,
+  email: metadata.email,
 };
 
 const feed = new Feed({
@@ -35,12 +36,9 @@ PostJson.forEach((post) => {
     author: [master],
     contributor: [master],
     date: new Date(post.date),
-
-    category: post.tags.map((tag) => ({ name: tag })),
+    category: post.tags.map((tag) => ({ name: tag, term: "Technologies" })),
   });
 });
-
-feed.addCategory("Technologies");
 
 // Output: RSS 2.0
 writeFileSync("public/rss.xml", feed.rss2(), "utf-8");

@@ -4,6 +4,7 @@ const metadata = {
   site_name: "[크리의 끄적끄적]",
   author: "Cree",
   siteUrl: "https://cree-devblog.net",
+  email: "leejongmin774@gmail.com",
 };
 
 export default metadata;

@@ -4,7 +4,7 @@
         <title>크리의 끄적끄적</title>
         <link>https://cree-devblog.net</link>
         <description>간단한 개발을 하는 크리의 블로그 입니다</description>
-        <lastBuildDate>Tue, 04 Apr 2023 15:23:53 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 04 Apr 2023 15:35:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
@@ -14,14 +14,12 @@
             <link>https://cree-devblog.net</link>
         </image>
         <copyright>All rights reserved since 2023-03-30, Cree</copyright>
-        <category>Technologies</category>
         <item>
             <title><![CDATA[첫 글]]></title>
             <link>https://cree-devblog.net/blog/2023_03_29_첫글</link>
             <guid>2023_03_29_첫글.mdx</guid>
             <pubDate>Wed, 29 Mar 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[블로그 제작후 첫 소감
-#블로그 #첫글]]></description>
+            <description><![CDATA[블로그 제작후 첫 소감]]></description>
             <content:encoded><![CDATA[
 ---
 
@@ -38,6 +36,7 @@
 
 앞으로 무언가 만들게 된다면 그 과정을 이곳에 기록할 예정이며, 포스트 뿐만 아니라 기능상으로도 업데이트를 통해 좀더 블로그 구실을 하는 블로그를 만들어 볼까 한다.
 ]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
             <category>블로그</category>
             <category>첫글</category>
         </item>
@@ -46,8 +45,7 @@
             <link>https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment</link>
             <guid>2023_03_30_ProgressBar+Comment.mdx</guid>
             <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현
-#Next.js #React #TailwindCss #Giscus #progressbar #comment]]></description>
+            <description><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현]]></description>
             <content:encoded><![CDATA[
 ---
 
@@ -202,6 +200,7 @@ export default Comment;
 
 그럼 오늘은 이만.. 자자..
 ]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
             <category>Next.js</category>
             <category>React</category>
             <category>TailwindCss</category>

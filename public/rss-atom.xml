@@ -2,10 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cree-devblog.net</id>
     <title>크리의 끄적끄적</title>
-    <updated>2023-04-04T15:23:53.757Z</updated>
+    <updated>2023-04-04T15:35:53.484Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Cree</name>
+        <email>leejongmin774@gmail.com</email>
         <uri>https://cree-devblog.net</uri>
     </author>
     <link rel="alternate" href="https://cree-devblog.net"/>
@@ -13,14 +14,12 @@
     <subtitle>간단한 개발을 하는 크리의 블로그 입니다</subtitle>
     <logo>https://cree-devblog.net/java-jeans.jpg</logo>
     <rights>All rights reserved since 2023-03-30, Cree</rights>
-    <category term="Technologies"/>
     <entry>
         <title type="html"><![CDATA[첫 글]]></title>
         <id>2023_03_29_첫글.mdx</id>
         <link href="https://cree-devblog.net/blog/2023_03_29_첫글"/>
         <updated>2023-03-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[블로그 제작후 첫 소감
-#블로그 #첫글]]></summary>
+        <summary type="html"><![CDATA[블로그 제작후 첫 소감]]></summary>
         <content type="html"><![CDATA[
 ---
 
@@ -39,12 +38,14 @@
 ]]></content>
         <author>
             <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
             <uri>https://cree-devblog.net</uri>
         </author>
-        <category label="블로그"/>
-        <category label="첫글"/>
+        <category label="블로그" term="Technologies"/>
+        <category label="첫글" term="Technologies"/>
         <contributor>
             <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
             <uri>https://cree-devblog.net</uri>
         </contributor>
     </entry>
@@ -53,8 +54,7 @@
         <id>2023_03_30_ProgressBar+Comment.mdx</id>
         <link href="https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment"/>
         <updated>2023-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현
-#Next.js #React #TailwindCss #Giscus #progressbar #comment]]></summary>
+        <summary type="html"><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현]]></summary>
         <content type="html"><![CDATA[
 ---
 
@@ -211,16 +211,18 @@ export default Comment;
 ]]></content>
         <author>
             <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
             <uri>https://cree-devblog.net</uri>
         </author>
-        <category label="Next.js"/>
-        <category label="React"/>
-        <category label="TailwindCss"/>
-        <category label="Giscus"/>
-        <category label="progressbar"/>
-        <category label="comment"/>
+        <category label="Next.js" term="Technologies"/>
+        <category label="React" term="Technologies"/>
+        <category label="TailwindCss" term="Technologies"/>
+        <category label="Giscus" term="Technologies"/>
+        <category label="progressbar" term="Technologies"/>
+        <category label="comment" term="Technologies"/>
         <contributor>
             <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
             <uri>https://cree-devblog.net</uri>
         </contributor>
     </entry>
