@@ -17,7 +17,7 @@ const feed = new Feed({
   link: metadata.siteUrl,
   language: "ko",
   image: `${metadata.siteUrl}/java-jeans.jpg`,
-  copyright: `All rights reserved since 2023-03-30, ${master.name}`,
+  copyright: `All rights reserved since 2023-03-29, ${master.name}`,
   generator: "generate-rss",
   feedLinks: {
     json: `${metadata.siteUrl}/json`,

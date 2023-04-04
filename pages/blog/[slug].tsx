@@ -19,7 +19,7 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
     <>
       <Container customMeta={customMeta}>
         <Progressbar />
-        <div className="mt-10 prose dark:prose-invert ">
+        <div className="mt-10 prose dark:prose-invert mx-auto ">
           <h1 className="text-sky-700">{post.title}</h1>
           <MDXComponent />
         </div>

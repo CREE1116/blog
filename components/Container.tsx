@@ -90,7 +90,7 @@ const Container = (props) => {
           <Nav />
         </div>
       </header>
-      <main className={`w-full max-w-3xl pt-8`}>{props.children}</main>
+      <main className={`w-full max-w-3xl pt-8 `}>{props.children}</main>
     </div>
   );
 };
