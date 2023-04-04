@@ -69,7 +69,7 @@ const Container = (props) => {
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
       >
         <div
-          className={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3`}
+          className={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3 z-50`}
         >
           <Link href="/">
             <a className={"flex flex-row items-center"}>
