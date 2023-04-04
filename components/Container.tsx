@@ -29,9 +29,16 @@ const Container = (props) => {
               content={meta.description + "\n#" + meta.keyword.join(" #")}
             />
             <meta content={meta.keyword.join(", ")} name="keyword" />
+            <meta
+              property="description"
+              content={meta.description + "\n#" + meta.keyword.join(" #")}
+            />
           </>
         ) : (
-          <meta property="og:description" content={meta.description} />
+          <>
+            <meta property="og:description" content={meta.description} />
+            <meta property="description" content={meta.description} />
+          </>
         )}
         <meta property="og:type" content="blog" />
         <meta property="og:title" content={meta.title} />
