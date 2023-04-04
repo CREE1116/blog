@@ -46,6 +46,24 @@ const Container = (props) => {
         <meta property="og:url" content={meta.siteUrl + router.asPath} />
         <meta property="og:image" content="/java-jeans.jpg" />
         <meta property="og:locale" content="kr_KO" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href="/rss.xml"
+          title="RSS"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          href="/rss-atom.xml"
+          title="RSS Atom"
+        />
+        <link
+          rel="alternate"
+          type="application/json"
+          href="/feed.json"
+          title="JSON Feed"
+        />
       </Head>
       <header
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
