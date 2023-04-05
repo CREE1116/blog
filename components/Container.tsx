@@ -46,6 +46,7 @@ const Container = (props) => {
         <meta property="og:url" content={meta.siteUrl + router.asPath} />
         <meta property="og:image" content="/java-jeans.jpg" />
         <meta property="og:locale" content="kr_KO" />
+
         <link
           rel="alternate"
           type="application/rss+xml"

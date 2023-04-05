@@ -5,9 +5,18 @@ import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
 import { InferGetStaticPropsType } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import json from "highlight.js/lib/languages/json";
+import "highlight.js/styles/atom-one-dark-reasonable.css";
+import { useEffect } from "react";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post.body.code);
+  hljs.registerLanguage("javascript", javascript);
+  hljs.registerLanguage("typescript", typescript);
+  hljs.registerLanguage("json", json);
 
   const customMeta = {
     title: post.title,
@@ -16,11 +25,15 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
     keyword: post.tags,
   };
 
+  useEffect(() => {
+    hljs.initHighlighting();
+  }, []);
+
   return (
     <>
       <Container customMeta={customMeta}>
         <Progressbar />
-        <div className="mt-10 prose dark:prose-invert mx-auto ">
+        <div className="mt-10 prose dark:prose-invert mx-auto">
           {post.image !== undefined ? (
             <div className="relative w-full h-56 -z-50">
               <Image

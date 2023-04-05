@@ -34,12 +34,12 @@ progressbar의 작동원리는 이렇다.
 
 전체 코드는 이렇다.
 
-```
+```javascript
 import { useEffect, useState } from "react";
-const Progressbar = ()=> {
-    const [percentage, setPercentage] = useState(100);
+const Progressbar = () => {
+  const [percentage, setPercentage] = useState(100);
 
-const getScrollPercentage = () => {
+  const getScrollPercentage = () => {
     const scroll = document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
     const clientHeight = document.documentElement.clientHeight;
@@ -50,31 +50,33 @@ const getScrollPercentage = () => {
 
   useEffect(() => {
     getScrollPercentage();
-    window.addEventListener('scroll', getScrollPercentage);
-    return () => window.removeEventListener('scroll', getScrollPercentage);
+    window.addEventListener("scroll", getScrollPercentage);
+    return () => window.removeEventListener("scroll", getScrollPercentage);
   }, []);
-    return(
-        <div className="fixed top-0 left-0 right-0">
-            <div className="bg-red-500 h-1"
-            style={{transform: `translateX(${(percentage - 100)}%)`}}/>
-        </div>
-    )
-}
-export default Progressbar
+  return (
+    <div className="fixed top-0 left-0 right-0">
+      <div
+        className="bg-red-500 h-1"
+        style={{ transform: `translateX(${percentage - 100}%)` }}
+      />
+    </div>
+  );
+};
+export default Progressbar;
 ```
 
 여기서 `useEffect` 부분을 보면 `getScrollPercentage()`가 한번 호출 되고 난 뒤 윈도우리스너를 등록하는데
 이는 글이 너무 짧아서 스크롤이 발생하지 않는 경우 Progressbar가 0%에서 고정되어있는 현상을 해결하기 위해 작성되었다.
 
-```
+```javascript
 const getScrollPercentage = () => {
-    const scroll = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    const viewport = scrollHeight - clientHeight;
-    const percentage = (scroll / viewport) * 100;
-    return setPercentage(percentage);
-  };
+  const scroll = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  const viewport = scrollHeight - clientHeight;
+  const percentage = (scroll / viewport) * 100;
+  return setPercentage(percentage);
+};
 ```
 
 이부분은 스크롤을 %로 구하는 부분이다.
@@ -82,8 +84,10 @@ const getScrollPercentage = () => {
 
 ```
 <div className="fixed top-0 left-0 right-0">
-    <div className="bg-red-500 h-1"
-    style={{transform: `translateX(${(percentage - 100)}%)`}}/>
+  <div
+    className="bg-red-500 h-1"
+    style={{ transform: `translateX(${percentage - 100}%)` }}
+  />
 </div>
 ```
 
