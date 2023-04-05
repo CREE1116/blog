@@ -1,0 +1,162 @@
+---
+title: 썸네일, 태그, 다크모드 구현(1)
+date: 2023-04-05
+description: tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현
+tags: [tailwindcss, next.js, blog, darkmode, tags]
+---
+
+---
+
+생각보다 자주 블로그를 수정하면서도 포스팅하기가 귀찮아져서 미루고 있다가 진행한 순서대로 차근차근 써보려고 한다.
+
+# 수정된 부분!
+
+1. 다크모드가 추가되었다.(이 포스트에선 이부분만 다룬다.)
+2. 상단 레이아웃이 따라다닌다.
+3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.
+
+## 다크모드
+
+    	> "다크모드는 개발자의 아주 소중한 친구지"
+
+그냥 급하게 지어내서 만들어본 말이다.  
+그만큼 오랜시간 화면을 보는 개발자에게 있어서 다크모드는 중요하기에 한번 추가해 봤다.
+
+일단 우리가 지금 사용하는 tailwind css는 아주 간단하게 다크모드를 지원한다.
+
+`dark: ` 라는 키워드를 통해 다크모드시 적용될 css를 기입할수있다.
+
+이런식으로 적용한 부분을 하나 하나 다 쓰자고 하면 너무 많으니 대표적으로 몇개만 가져온다면
+
+```typescript
+
+<header
+className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
+>
+```
+
+이렇게 원랜 흰색이지만 다크모드에서 어두운 회색으로 바뀌게 할수 있다.
+
+그외에 너무 자주 쓰이는 것들은 `global.css` 에 적용해 두었는데 기본적인 text가 흰색으로 바뀌거나 배경이 짙은 회색으로 바뀌게 하는 코드다
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-black dark:bg-gray-800 dark:text-white;
+  }
+}
+```
+
+근데 이런식으로 하면 tailwind css는 기본적으로 `media`에 따라 다크모드를 조절하게 되어서 기기의 세팅값만을 따라가게 된다.
+
+분명 심플하고 섹시한 구현방식은 맞지만 내가 원하는건 그것이 아니다.
+
+뭔가 장난기 넘치고 쓸모없어 보이게 전구를 키면 밝아지고 끄면 어두워지는 그런걸 원한단 말이다.
+
+이걸 구현할수 있는 방법이 무엇일까 하고 구글링을 열심히 해보았다.
+
+그 결과 찾아낸것이
+
+`tailwindcss.config`에서 `darkmode`속성을 `"class"` 로 지정해주는 것이었다.
+
+```typescript
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {},
+  },
+  plugins: [require("@tailwindcss/typography")],
+};
+```
+
+이렇게 되면 `_app.tsx` (최상위 테그라고 생각하자 그냥)의 classname에서 다크모드를 지정해줄수 있다.
+
+그런데 이렇게 하면 좀 뭔가 어설퍼진다.
+
+글의 색만 바뀌고 여전히 배경색은 시스템 테마를 따라가게 된다.
+
+이유는 막 엄청 잘 알겠는건 아니지만 배경과같은 요소는 classname을 바꾼다고해서 media를 아에 무시하지 않는 모양이었다?..
+(이유를 아는 분은 좀 알려주세요 )
+
+그래서 검색을 또 열심히 한 결과 `next-themes`를 사용하기로 했다.
+
+> npm install next-themes
+> or
+> yarn add next-themes
+
+를 통해 가볍게 설치할수 있다.
+
+`next-themes`를 사용하면 `useTheme()`라는 훅과 `ThemeProvider`라는 컴포넌트를 사용할수 있다.
+
+이제 최상위 엘리먼트를 `ThemeProvider`로 감싸고 `attribute` 속성을 `class`로 설정한다.
+
+```typescript
+import { ThemeProvider } from "next-themes";
+import "../styles/globals.css";
+
+import type { AppProps } from "next/app";
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider attribute="class">
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+
+export default MyApp;
+```
+
+이제 우리 맘대로 태마를 바꿀수 있게 되었다.
+
+그럼 간단하게 ` useTheme`을 사용해 테마 변경 버튼을 만들어 본다.
+
+```typescript
+import { useTheme } from "next-themes";
+import Image from "next/image";
+
+const Togglebtn = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      // 클릭시 다크모드면 라이트로 바꿈
+      className={`mr-3 animate-pulse`}
+    >
+      {theme === "light" ? (
+        <Image
+          src={`/on.png`}
+          alt={""}
+          width={30}
+          height={30}
+          className={`rounded-3xl hover:cursor-pointer`}
+        />
+      ) : (
+        <Image
+          src={`/off.png`}
+          alt={""}
+          width={30}
+          height={30}
+          className={`rounded-3xl hover:cursor-pointer`}
+        />
+      )}
+    </button>
+  );
+};
+
+export default Togglebtn;
+```
+
+`useTheme`은 약간 테마 전용 `useState`와 비슷하다고 생각하면 된다.
+
+이렇게 다크모드가 추가되었다.

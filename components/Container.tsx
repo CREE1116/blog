@@ -21,7 +21,7 @@ const Container = (props) => {
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{meta.title}</title>
-        <link rel="icon" href="/java-jeans.jpg" />
+        <link rel="icon" href="/그냥 크리.jpeg" />
         {meta.keyword !== undefined ? (
           <>
             <meta
@@ -44,7 +44,7 @@ const Container = (props) => {
         <meta property="og:title" content={meta.title} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:url" content={meta.siteUrl + router.asPath} />
-        <meta property="og:image" content="/java-jeans.jpg" />
+        <meta property="og:image" content="그냥 크리.jpeg" />
         <meta property="og:locale" content="kr_KO" />
 
         <link
@@ -75,7 +75,7 @@ const Container = (props) => {
           <Link href="/">
             <a className={"flex flex-row items-center"}>
               <Image
-                src={`/java-jeans.jpg`}
+                src={`/그냥 크리.jpeg`}
                 alt="로고"
                 width={40}
                 height={40}

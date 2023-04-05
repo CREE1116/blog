@@ -1,0 +1,224 @@
+---
+title: 썸네일, 태그, 다크모드 구현(2)
+date: 2023-04-05
+description: tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현
+tags: [tailwindcss, next.js, blog, darkmode, tags]
+---
+
+---
+
+1탄이 다크모드만으로 좀 길어진것 같아 2편으로 잘라서 나머지를 한번 해보려고 한다.
+
+# 수정된 부분!
+
+1. 다크모드가 추가되었다.
+2. 상단 레이아웃이 따라다닌다.
+3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.
+
+나머지 레이아웃과 tag를 이번 포스트에서 알아보자
+
+## 레이아웃?
+
+사실 뭐 별거 없다...
+
+```jsx
+<header
+className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
+>
+	<div
+	className={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3 z-50`
+	>
+		<Link href="/">
+			<a className={"flex flex-row items-center"}>
+				<Image
+				src={`/java-jeans.jpg`}
+				alt="로고"
+				width={40}
+				height={40}
+				objectFit={`cover`}
+				className={`rounded-full`}
+				/>
+				<span className={`mx-2 font-extralight text-lg`}>
+					{metadata.title}
+				</span>
+			</a>
+		</Link>
+		<Togglebtn />
+		<Nav />
+	</div>
+</header>
+```
+
+저기서 `header`부분에 `fixed` 를 이용해서 상단에 절대 좌표로 고정하면 된다...  
+개선 하긴 했으니까 넣은건데 굳이 머 티를 낼것인가 싶긴 하다.
+
+## 썸네일
+
+어떤 식으로 만들까 고민을 했던 부분이다.
+
+현제 블로그의 구조는 `./post` 에 마크다운으로 작성된 글을 올리면 `contantlayer`에서 빌드시 자동으로 JSON으로 바꿔주고, 이것을 불러오는 형식으로 작동한다.
+
+즉 내가 편하려면 이 마크다운에서 썸넬을 결정할수 있어야 한다고 생각을 했다.
+
+그러기 위해서 `contantlayer.config`를 수정했어야 했는데 수정하는 김에 tags기능도 같이 구현해보기로 했다.
+
+```Typescript
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+
+export const Post = defineDocumentType(() => ({
+	name: "Post",
+	contentType: "mdx",
+	filePathPattern: `**/*.mdx`,
+	fields: {
+		title: { type: "string", required: true },
+		date: { type: "string", required: true },
+		description: { type: "string", required: true },
+		tags: { type: "list", of: { type: "string" } },
+		image: { type: "string" },
+	},
+}));
+
+export default makeSource({
+	contentDirPath: "posts",
+	documentTypes: [Post],
+});
+```
+
+`fields`항목에서 tags와 image를 추가했다.
+
+이렇게 되면 mdx형식으로 포스팅을 작성할때 두 항목을 기입해 자동으로 JSON을 생성하도록 할수있다.
+
+```
+---
+title: 썸네일, 태그, 다크모드 구현(1)
+date: 2023-04-05
+description: tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현
+tags: [tailwindcss, next.js, blog, darkmode, tags]
+image: /java-jeans.jpg
+---
+```
+
+(이런 식으로 기입한다.)
+
+그럼 자동으로 생성된 JSON에는 image항목에 내가 기입한 이미지의 위치가 들어가게 될것이고, 이걸 읽어와서 옆에 이쁘게 놓아주기만 하면 되는것이다.
+
+다만!.. 이미지를 넣지 않는 경우 그냥 횡 하니 비어있는것이 꼴보기 싫기에 간단하게 제목정도를 적어두는 회색 창을 하나 만들것이다.
+
+```Typescript
+<div className="flex-initial w-[30%] relative">
+	{imagesrc !== undefined ? (
+		<Image
+		src={imagesrc}
+		alt={title}
+		quality={80}
+		layout="fill"
+		objectFit="cover"
+		objectPosition="center"
+		className={`absolute, rounded-2xl`}
+		/>
+	) : (
+		<div className="absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white">
+			{title}
+		</div>
+	)}
+</div>
+```
+
+또한 테그 기능을 구현할 것이니, 리스트 형태의 태그를 출력하는 간단한 span도 하나 만들어 보자
+
+```Typescript
+{tags !== undefined ? tags.map((tag, index) => {
+	return (
+		<span
+		key={index}
+		className={`text-xs text-gray-400 font-light mt-1`}
+		>
+			#{tag}
+		</span>
+		);
+	})
+: null}
+```
+
+(전체 코드)
+
+```javascript
+import Link from "next/link";
+import Image from "next/image";
+
+const BlogPost = ({ date, title, des, slug, tags, imagesrc }) => {
+  return (
+    <Link href={`/blog/${slug}`} passHref>
+      <a className="w-full my-7 hover:-translate-x-1.5 flex">
+        <div className="flex-initial w-[70%]">
+          <div className="font-medium text-xs text-gray-400">
+            {date.split("T")[0]}
+          </div>
+          <div className={`font-extrabold text-2xl mt-2`}>{title}</div>
+          <div className={`font-medium text-gray-600 text-xl mt-1`}>{des}</div>
+          {tags !== undefined
+            ? tags.map((tag, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={`text-xs text-gray-400 font-light mt-1`}
+                  >
+                    #{tag}
+                  </span>
+                );
+              })
+            : null}
+        </div>
+        <div className="flex-initial w-[30%] relative">
+          {imagesrc !== undefined ? (
+            <Image
+              src={imagesrc}
+              alt={title}
+              quality={80}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              className={`absolute, rounded-2xl`}
+            />
+          ) : (
+            <div className="absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white">
+              {title}
+            </div>
+          )}
+        </div>
+      </a>
+    </Link>
+  );
+};
+
+export default BlogPost;
+```
+
+이렇게 된다.
+
+관련된 정보는 `blog/index.tsx`에서 받아오게 된다.
+
+```typescript
+const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  return (
+    <Container>
+      <div className={`mt-10 flex flex-col`}>
+        {posts.map((post) => (
+          <BlogPost
+            date={post.date}
+            title={post.title}
+            des={post.description}
+            slug={post._raw.flattenedPath}
+            key={post._id}
+            tags={post.tags}
+            imagesrc={post.image}
+          />
+        ))}
+      </div>
+    </Container>
+  );
+};
+```
+
+다음 포스팅에서 돌아오게따
+바꾼거 이것저것 있는데 정리하려니 귀찮다.

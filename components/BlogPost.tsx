@@ -24,7 +24,7 @@ const BlogPost = ({ date, title, des, slug, tags, imagesrc }) => {
               })
             : null}
         </div>
-        <div className="flex-initial w-[30%] relative">
+        <div className="flex-initial w-[30%] relative -z-50">
           {imagesrc !== undefined ? (
             <Image
               src={imagesrc}
