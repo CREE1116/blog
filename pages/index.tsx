@@ -14,7 +14,11 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={`my-5 w-full border-t-[12px] border-transparent`}>
         <div className={`relative contrast-100 -z-50`}>
           <Image
-            src={theme === "dark" ? `/산화해버린 크리.jpeg` : `/그냥 크리.jpeg`}
+            src={
+              theme === "dark"
+                ? `/images/산화해버린 크리.jpeg`
+                : `/images/그냥 크리.jpeg`
+            }
             alt="대표 이미지"
             width={`100%`}
             height={45}

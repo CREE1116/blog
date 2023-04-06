@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>크리의 끄적끄적</title>
+        <link>https://cree-devblog.net</link>
+        <description>간단한 개발을 하는 크리의 블로그 입니다</description>
+        <lastBuildDate>Thu, 06 Apr 2023 15:08:51 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>generate-rss</generator>
+        <language>ko</language>
+        <image>
+            <title>크리의 끄적끄적</title>
+            <url>https://cree-devblog.net/images/그냥크리.jpeg</url>
+            <link>https://cree-devblog.net</link>
+        </image>
+        <copyright>All rights reserved since 2023-03-29, Cree</copyright>
+        <item>
+            <title><![CDATA[첫 글]]></title>
+            <link>https://cree-devblog.net/blog/2023_03_29_첫글</link>
+            <guid>2023_03_29_첫글.mdx</guid>
+            <pubDate>Wed, 29 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[블로그 제작후 첫 소감]]></description>
+            <content:encoded><![CDATA[
+---
+
+# 블로그를 만든 이유
+
+- 그래도 한명의 컴공과 학생으로써 기술 블로그 하나는 있어야 하지 않나 라는 생각을 했었다.
+  그렇게 velog등등 이것저것 맛을 봤는데, 편하고 좋기는 하지만 그래도 내가 코딩을 하는 인간인데 한번쯤 만들어보는것이 좋지 않나 하여 이렇게 기본적인 블로그를 만들었다.
+
+# 사용한 스텍
+
+- Next.js
+- React.js
+- ContantLayer
+
+앞으로 무언가 만들게 된다면 그 과정을 이곳에 기록할 예정이며, 포스트 뿐만 아니라 기능상으로도 업데이트를 통해 좀더 블로그 구실을 하는 블로그를 만들어 볼까 한다.
+]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
+            <category>블로그</category>
+            <category>첫글</category>
+            <enclosure url="https://cree-devblog.net//java-jeans.jpg" length="0" type="image/jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[ProgressBar + Comment 구현]]></title>
+            <link>https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment</link>
+            <guid>2023_03_30_ProgressBar+Comment.mdx</guid>
+            <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현]]></description>
+            <content:encoded><![CDATA[
+---
+
+# 개발할 부분 선정 이유
+
+### ProgressBar
+
+> 이야 이거 멋있다!
+
+참고용으로 다른 분들의 블로그를 찾아볼때마다 눈에 들어오던것이었다.
+사실 막 그닥 필요한 장치는 아니지만 막 어려워 보이지 않아서 만들어보기로 했다
+
+### Comment
+
+> 블로그라면 있어야지!
+
+기술블로그니까! 있어야지! 라는 마음으로 도입해보기로 했다.
+
+---
+
+## ProgressBar
+
+progressbar의 작동원리는 이렇다.
+
+1. 페이지 로드시 지금 스크롤과 뷰포트를 읽어와 퍼센트로 변환한다.
+2. 스크롤 리스너를 통해 스크롤이 발생할때마다 읽어온다.
+3. 읽어온 스크롤 퍼센트(?)에 따라 ProgressBar의 X를 Translate를 통해 변화시킨다.
+
+전체 코드는 이렇다.
+
+```javascript
+import { useEffect, useState } from "react";
+const Progressbar = () => {
+  const [percentage, setPercentage] = useState(100);
+
+  const getScrollPercentage = () => {
+    const scroll = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    const viewport = scrollHeight - clientHeight;
+    const percentage = (scroll / viewport) * 100;
+    return setPercentage(percentage);
+  };
+
+  useEffect(() => {
+    getScrollPercentage();
+    window.addEventListener("scroll", getScrollPercentage);
+    return () => window.removeEventListener("scroll", getScrollPercentage);
+  }, []);
+  return (
+    <div className="fixed top-0 left-0 right-0">
+      <div
+        className="bg-red-500 h-1"
+        style={{ transform: `translateX(${percentage - 100}%)` }}
+      />
+    </div>
+  );
+};
+export default Progressbar;
+```
+
+여기서 `useEffect` 부분을 보면 `getScrollPercentage()`가 한번 호출 되고 난 뒤 윈도우리스너를 등록하는데
+이는 글이 너무 짧아서 스크롤이 발생하지 않는 경우 Progressbar가 0%에서 고정되어있는 현상을 해결하기 위해 작성되었다.
+
+```javascript
+const getScrollPercentage = () => {
+  const scroll = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  const viewport = scrollHeight - clientHeight;
+  const percentage = (scroll / viewport) * 100;
+  return setPercentage(percentage);
+};
+```
+
+이부분은 스크롤을 %로 구하는 부분이다.
+스크롤을 viewport값으로 나눠서 퍼센트로 구하는 코드이다.
+
+```
+<div className="fixed top-0 left-0 right-0">
+  <div
+    className="bg-red-500 h-1"
+    style={{ transform: `translateX(${percentage - 100}%)` }}
+  />
+</div>
+```
+
+tailwindCss 를 사용했으며
+`fixed top-0 left-0 right-0`는 progressbar를 최상단에 고정하는 부분이다.  
+`bg-red-500 h-1`는 progressbar를 빨간색으로 하고, 높이를 정하는 부분이다.  
+`` style={{transform: `translateX(${(percentage - 100)}%)`}} ``는 퍼센트에 따라서 길이를 변형시키는 코드이다.  
+`percentage - 100` 인 이유는 왼쪽부터 오른쪽으로 진행해야 하기 때문이다.
+(궁금하면 그냥 `percentage`해봐라 뭔 소리인지 이해할것이다.)
+
+이렇게 Next.js의 컴포넌트로 구현을 해두었다.
+
+---
+
+### Comment
+
+댓글은 DB를 만들어서 API를 통해 구현해도 되지만 간단한 사이드프로젝트이기때문에 DB구현부터 백앤드 구현은 좀 투머치라고 생각해서 이미 있는 방법들중 Giscus를 이용하기로 했다.
+
+giscus를 이용하는 이유는 다음과 같다.
+
+1. 일단 공식 문서가 한글화되어있는 점에서 접근성이 편하다.
+2. 깃허브의 토론을 이용하기때문에 깃허브를 사용하는 사람이라면 접근성도, 보기도 좋다.
+3. Next.js용 페키지가 있다...(구현할거 없어서 짱 좋음)
+
+간단하게 사용하는법을 적어두자면  
+[giscus페이지](https://giscus.app/ko)
+
+    1. 깃헙에서 Public으로 레파지토리를 하나 판다(블로그를 배포한다고 파둔 레파지토리가 Public이라면 그냥 그거 써도 된다.)
+    2. 토론 탭을 활성화 시킨다.(세팅 들어가서 General에서 쭉 내리다 보면 있다.)
+    3. giscus문서에 가서 필요한것들을 적는다.(문서 링크는 위쪽에 있다.)
+    4. 나온 값들을 일단 킵해둔다.
+    5. giscus 페키지를 설치한다.
+    	(React나 Next.js라면
+    	yarn add @giscus/react
+    	or
+    	npm i @giscus/react)
+    를 통해 설치할수있다.
+    6.잘 쓴다.
+
+다음은 전체 코드이다.
+
+```javascript
+import Giscus from "@giscus/react";
+
+const Comment = () => {
+  return (
+    <div className="border-t-[100px] border-transparent">
+      <Giscus
+        id="comments"
+        repo="내 레파지토리에욧!"
+        repoId="내 레파지토리 아이디에욧!"
+        category="General"
+        categoryId="문서에 기입할거 다 적으면 알아서 나와욧!"
+        mapping="pathname"
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="top"
+        theme="light"
+        lang="ko"
+        loading="lazy"
+      />
+    </div>
+  );
+};
+
+export default Comment;
+```
+
+(진짜 뭐 없다...)
+
+이렇게 구현된 것들은 지금 이 포스트를 보고있는 지금 만나볼수 있다.
+
+그럼 오늘은 이만.. 자자..
+]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
+            <category>Next.js</category>
+            <category>React</category>
+            <category>TailwindCss</category>
+            <category>Giscus</category>
+            <category>progressbar</category>
+            <category>comment</category>
+            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+        </item>
+        <item>
+            <title><![CDATA[썸네일, 태그, 다크모드 구현(1)]]></title>
+            <link>https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)</link>
+            <guid>2023_04_05_썸네일, 태그,다크모드 구현(1).mdx</guid>
+            <pubDate>Wed, 05 Apr 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></description>
+            <content:encoded><![CDATA[
+---
+
+생각보다 자주 블로그를 수정하면서도 포스팅하기가 귀찮아져서 미루고 있다가 진행한 순서대로 차근차근 써보려고 한다.
+
+# 수정된 부분!
+
+1. 다크모드가 추가되었다.(이 포스트에선 이부분만 다룬다.)
+2. 상단 레이아웃이 따라다닌다.
+3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.
+
+## 다크모드
+
+    	> "다크모드는 개발자의 아주 소중한 친구지"
+
+그냥 급하게 지어내서 만들어본 말이다.  
+그만큼 오랜시간 화면을 보는 개발자에게 있어서 다크모드는 중요하기에 한번 추가해 봤다.
+
+일단 우리가 지금 사용하는 tailwind css는 아주 간단하게 다크모드를 지원한다.
+
+`dark: ` 라는 키워드를 통해 다크모드시 적용될 css를 기입할수있다.
+
+이런식으로 적용한 부분을 하나 하나 다 쓰자고 하면 너무 많으니 대표적으로 몇개만 가져온다면
+
+```typescript
+
+<header
+className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
+>
+```
+
+이렇게 원랜 흰색이지만 다크모드에서 어두운 회색으로 바뀌게 할수 있다.
+
+그외에 너무 자주 쓰이는 것들은 `global.css` 에 적용해 두었는데 기본적인 text가 흰색으로 바뀌거나 배경이 짙은 회색으로 바뀌게 하는 코드다
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-black dark:bg-gray-800 dark:text-white;
+  }
+}
+```
+
+근데 이런식으로 하면 tailwind css는 기본적으로 `media`에 따라 다크모드를 조절하게 되어서 기기의 세팅값만을 따라가게 된다.
+
+분명 심플하고 섹시한 구현방식은 맞지만 내가 원하는건 그것이 아니다.
+
+뭔가 장난기 넘치고 쓸모없어 보이게 전구를 키면 밝아지고 끄면 어두워지는 그런걸 원한단 말이다.
+
+이걸 구현할수 있는 방법이 무엇일까 하고 구글링을 열심히 해보았다.
+
+그 결과 찾아낸것이
+
+`tailwindcss.config`에서 `darkmode`속성을 `"class"` 로 지정해주는 것이었다.
+
+```typescript
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {},
+  },
+  plugins: [require("@tailwindcss/typography")],
+};
+```
+
+이렇게 되면 `_app.tsx` (최상위 테그라고 생각하자 그냥)의 classname에서 다크모드를 지정해줄수 있다.
+
+그런데 이렇게 하면 좀 뭔가 어설퍼진다.
+
+글의 색만 바뀌고 여전히 배경색은 시스템 테마를 따라가게 된다.
+
+이유는 막 엄청 잘 알겠는건 아니지만 배경과같은 요소는 classname을 바꾼다고해서 media를 아에 무시하지 않는 모양이었다?..
+(이유를 아는 분은 좀 알려주세요 )
+
+그래서 검색을 또 열심히 한 결과 `next-themes`를 사용하기로 했다.
+
+> npm install next-themes
+> or
+> yarn add next-themes
+
+를 통해 가볍게 설치할수 있다.
+
+`next-themes`를 사용하면 `useTheme()`라는 훅과 `ThemeProvider`라는 컴포넌트를 사용할수 있다.
+
+이제 최상위 엘리먼트를 `ThemeProvider`로 감싸고 `attribute` 속성을 `class`로 설정한다.
+
+```typescript
+import { ThemeProvider } from "next-themes";
+import "../styles/globals.css";
+
+import type { AppProps } from "next/app";
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider attribute="class">
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+
+export default MyApp;
+```
+
+이제 우리 맘대로 태마를 바꿀수 있게 되었다.
+
+그럼 간단하게 ` useTheme`을 사용해 테마 변경 버튼을 만들어 본다.
+
+```typescript
+import { useTheme } from "next-themes";
+import Image from "next/image";
+
+const Togglebtn = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      // 클릭시 다크모드면 라이트로 바꿈
+      className={`mr-3 animate-pulse`}
+    >
+      {theme === "light" ? (
+        <Image
+          src={`/on.png`}
+          alt={""}
+          width={30}
+          height={30}
+          className={`rounded-3xl hover:cursor-pointer`}
+        />
+      ) : (
+        <Image
+          src={`/off.png`}
+          alt={""}
+          width={30}
+          height={30}
+          className={`rounded-3xl hover:cursor-pointer`}
+        />
+      )}
+    </button>
+  );
+};
+
+export default Togglebtn;
+```
+
+`useTheme`은 약간 테마 전용 `useState`와 비슷하다고 생각하면 된다.
+
+이렇게 다크모드가 추가되었다.
+]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
+            <category>tailwindcss</category>
+            <category>next.js</category>
+            <category>blog</category>
+            <category>darkmode</category>
+            <category>tags</category>
+            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+        </item>
+        <item>
+            <title><![CDATA[썸네일, 태그, 다크모드 구현(2)]]></title>
+            <link>https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)</link>
+            <guid>2023_04_05_썸네일, 태그,다크모드 구현(2).mdx</guid>
+            <pubDate>Wed, 05 Apr 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></description>
+            <content:encoded><![CDATA[
+---
+
+1탄이 다크모드만으로 좀 길어진것 같아 2편으로 잘라서 나머지를 한번 해보려고 한다.
+
+# 수정된 부분!
+
+1. 다크모드가 추가되었다.
+2. 상단 레이아웃이 따라다닌다.
+3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.
+
+나머지 레이아웃과 tag를 이번 포스트에서 알아보자
+
+## 레이아웃?
+
+사실 뭐 별거 없다...
+
+```jsx
+<header
+className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
+>
+	<div
+	className={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3 z-50`
+	>
+		<Link href="/">
+			<a className={"flex flex-row items-center"}>
+				<Image
+				src={`/java-jeans.jpg`}
+				alt="로고"
+				width={40}
+				height={40}
+				objectFit={`cover`}
+				className={`rounded-full`}
+				/>
+				<span className={`mx-2 font-extralight text-lg`}>
+					{metadata.title}
+				</span>
+			</a>
+		</Link>
+		<Togglebtn />
+		<Nav />
+	</div>
+</header>
+```
+
+저기서 `header`부분에 `fixed` 를 이용해서 상단에 절대 좌표로 고정하면 된다...  
+개선 하긴 했으니까 넣은건데 굳이 머 티를 낼것인가 싶긴 하다.
+
+## 썸네일
+
+어떤 식으로 만들까 고민을 했던 부분이다.
+
+현제 블로그의 구조는 `./post` 에 마크다운으로 작성된 글을 올리면 `contantlayer`에서 빌드시 자동으로 JSON으로 바꿔주고, 이것을 불러오는 형식으로 작동한다.
+
+즉 내가 편하려면 이 마크다운에서 썸넬을 결정할수 있어야 한다고 생각을 했다.
+
+그러기 위해서 `contantlayer.config`를 수정했어야 했는데 수정하는 김에 tags기능도 같이 구현해보기로 했다.
+
+```Typescript
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+
+export const Post = defineDocumentType(() => ({
+	name: "Post",
+	contentType: "mdx",
+	filePathPattern: `**/*.mdx`,
+	fields: {
+		title: { type: "string", required: true },
+		date: { type: "string", required: true },
+		description: { type: "string", required: true },
+		tags: { type: "list", of: { type: "string" } },
+		image: { type: "string" },
+	},
+}));
+
+export default makeSource({
+	contentDirPath: "posts",
+	documentTypes: [Post],
+});
+```
+
+`fields`항목에서 tags와 image를 추가했다.
+
+이렇게 되면 mdx형식으로 포스팅을 작성할때 두 항목을 기입해 자동으로 JSON을 생성하도록 할수있다.
+
+```
+---
+title: 썸네일, 태그, 다크모드 구현(1)
+date: 2023-04-05
+description: tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현
+tags: [tailwindcss, next.js, blog, darkmode, tags]
+image: /java-jeans.jpg
+---
+```
+
+(이런 식으로 기입한다.)
+
+그럼 자동으로 생성된 JSON에는 image항목에 내가 기입한 이미지의 위치가 들어가게 될것이고, 이걸 읽어와서 옆에 이쁘게 놓아주기만 하면 되는것이다.
+
+다만!.. 이미지를 넣지 않는 경우 그냥 횡 하니 비어있는것이 꼴보기 싫기에 간단하게 제목정도를 적어두는 회색 창을 하나 만들것이다.
+
+```Typescript
+<div className="flex-initial w-[30%] relative">
+	{imagesrc !== undefined ? (
+		<Image
+		src={imagesrc}
+		alt={title}
+		quality={80}
+		layout="fill"
+		objectFit="cover"
+		objectPosition="center"
+		className={`absolute, rounded-2xl`}
+		/>
+	) : (
+		<div className="absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white">
+			{title}
+		</div>
+	)}
+</div>
+```
+
+또한 테그 기능을 구현할 것이니, 리스트 형태의 태그를 출력하는 간단한 span도 하나 만들어 보자
+
+```Typescript
+{tags !== undefined ? tags.map((tag, index) => {
+	return (
+		<span
+		key={index}
+		className={`text-xs text-gray-400 font-light mt-1`}
+		>
+			#{tag}
+		</span>
+		);
+	})
+: null}
+```
+
+(전체 코드)
+
+```javascript
+import Link from "next/link";
+import Image from "next/image";
+
+const BlogPost = ({ date, title, des, slug, tags, imagesrc }) => {
+  return (
+    <Link href={`/blog/${slug}`} passHref>
+      <a className="w-full my-7 hover:-translate-x-1.5 flex">
+        <div className="flex-initial w-[70%]">
+          <div className="font-medium text-xs text-gray-400">
+            {date.split("T")[0]}
+          </div>
+          <div className={`font-extrabold text-2xl mt-2`}>{title}</div>
+          <div className={`font-medium text-gray-600 text-xl mt-1`}>{des}</div>
+          {tags !== undefined
+            ? tags.map((tag, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={`text-xs text-gray-400 font-light mt-1`}
+                  >
+                    #{tag}
+                  </span>
+                );
+              })
+            : null}
+        </div>
+        <div className="flex-initial w-[30%] relative">
+          {imagesrc !== undefined ? (
+            <Image
+              src={imagesrc}
+              alt={title}
+              quality={80}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              className={`absolute, rounded-2xl`}
+            />
+          ) : (
+            <div className="absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white">
+              {title}
+            </div>
+          )}
+        </div>
+      </a>
+    </Link>
+  );
+};
+
+export default BlogPost;
+```
+
+이렇게 된다.
+
+관련된 정보는 `blog/index.tsx`에서 받아오게 된다.
+
+```typescript
+const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  return (
+    <Container>
+      <div className={`mt-10 flex flex-col`}>
+        {posts.map((post) => (
+          <BlogPost
+            date={post.date}
+            title={post.title}
+            des={post.description}
+            slug={post._raw.flattenedPath}
+            key={post._id}
+            tags={post.tags}
+            imagesrc={post.image}
+          />
+        ))}
+      </div>
+    </Container>
+  );
+};
+```
+
+다음 포스팅에서 돌아오게따
+바꾼거 이것저것 있는데 정리하려니 귀찮다.
+]]></content:encoded>
+            <author>leejongmin774@gmail.com (Cree)</author>
+            <category>tailwindcss</category>
+            <category>next.js</category>
+            <category>blog</category>
+            <category>darkmode</category>
+            <category>tags</category>
+            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+        </item>
+    </channel>
+</rss>

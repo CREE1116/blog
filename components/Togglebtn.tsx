@@ -13,7 +13,7 @@ const Togglebtn = () => {
     >
       {theme === "light" ? (
         <Image
-          src={`/on.png`}
+          src={`/images/on.png`}
           alt={""}
           width={30}
           height={30}
@@ -21,7 +21,7 @@ const Togglebtn = () => {
         />
       ) : (
         <Image
-          src={`/off.png`}
+          src={`/images/off.png`}
           alt={""}
           width={30}
           height={30}

@@ -21,7 +21,7 @@ const Container = (props) => {
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{meta.title}</title>
-        <link rel="icon" href="/그냥 크리.jpeg" />
+        <link rel="icon" href="/images/그냥 크리.jpeg" />
         {meta.keyword !== undefined ? (
           <>
             <meta
@@ -30,39 +30,39 @@ const Container = (props) => {
             />
             <meta content={meta.keyword.join(", ")} name="keyword" />
             <meta
-              property="description"
+              name="description"
               content={meta.description + "\n#" + meta.keyword.join(" #")}
             />
           </>
         ) : (
           <>
             <meta property="og:description" content={meta.description} />
-            <meta property="description" content={meta.description} />
+            <meta name="description" content={meta.description} />
           </>
         )}
         <meta property="og:type" content="blog" />
         <meta property="og:title" content={meta.title} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:url" content={meta.siteUrl + router.asPath} />
-        <meta property="og:image" content="그냥 크리.jpeg" />
+        <meta property="og:image" content="/images/그냥 크리.jpeg" />
         <meta property="og:locale" content="kr_KO" />
 
         <link
           rel="alternate"
           type="application/rss+xml"
-          href="/rss.xml"
+          href={`${meta.siteUrl}/rss/rss.xml}`}
           title="RSS"
         />
         <link
           rel="alternate"
           type="application/atom+xml"
-          href="/rss-atom.xml"
+          href={`${meta.siteUrl}/rss/rss-atom.xml}`}
           title="RSS Atom"
         />
         <link
           rel="alternate"
           type="application/json"
-          href="/feed.json"
+          href={`${meta.siteUrl}/rss/feed.json}`}
           title="JSON Feed"
         />
       </Head>
@@ -75,7 +75,7 @@ const Container = (props) => {
           <Link href="/">
             <a className={"flex flex-row items-center"}>
               <Image
-                src={`/그냥 크리.jpeg`}
+                src={`/images/그냥 크리.jpeg`}
                 alt="로고"
                 width={40}
                 height={40}

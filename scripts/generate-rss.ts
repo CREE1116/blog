@@ -16,12 +16,12 @@ const feed = new Feed({
   id: metadata.siteUrl,
   link: metadata.siteUrl,
   language: "ko",
-  image: `${metadata.siteUrl}/java-jeans.jpg`,
+  image: `${metadata.siteUrl}/images/그냥크리.jpeg`,
   copyright: `All rights reserved since 2023-03-29, ${master.name}`,
   generator: "generate-rss",
   feedLinks: {
-    json: `${metadata.siteUrl}/json`,
-    atom: `${metadata.siteUrl}/atom`,
+    json: `${metadata.siteUrl}/rss/json`,
+    atom: `${metadata.siteUrl}/rss/atom`,
   },
   author: master,
 });
@@ -34,6 +34,10 @@ PostJson.forEach((post) => {
     description: post.description,
     content: post.body.raw,
     author: [master],
+    image:
+      post.image !== undefined
+        ? `${metadata.siteUrl}/${post.image}`
+        : `${metadata.siteUrl}/images/그냥크리.jpeg`,
     contributor: [master],
     date: new Date(post.date),
     category: post.tags.map((tag) => ({ name: tag, term: "Technologies" })),
@@ -41,8 +45,8 @@ PostJson.forEach((post) => {
 });
 
 // Output: RSS 2.0
-writeFileSync("public/rss.xml", feed.rss2(), "utf-8");
+writeFileSync("public/rss/rss.xml", feed.rss2(), "utf-8");
 // Output: Atom 1.0
-writeFileSync("public/rss-atom.xml", feed.atom1(), "utf-8");
+writeFileSync("public/rss/rss-atom.xml", feed.atom1(), "utf-8");
 // Output: JSON Feed 1.0
-writeFileSync("public/feed.json", feed.json1(), "utf-8");
+writeFileSync("public/rss/feed.json", feed.json1(), "utf-8");

@@ -1,0 +1,92 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "크리의 끄적끄적",
+    "home_page_url": "https://cree-devblog.net",
+    "feed_url": "https://cree-devblog.net/rss/json",
+    "description": "간단한 개발을 하는 크리의 블로그 입니다",
+    "icon": "https://cree-devblog.net/images/그냥크리.jpeg",
+    "author": {
+        "name": "Cree",
+        "url": "https://cree-devblog.net"
+    },
+    "items": [
+        {
+            "id": "2023_03_29_첫글.mdx",
+            "content_html": "\n---\n\n# 블로그를 만든 이유\n\n- 그래도 한명의 컴공과 학생으로써 기술 블로그 하나는 있어야 하지 않나 라는 생각을 했었다.\n  그렇게 velog등등 이것저것 맛을 봤는데, 편하고 좋기는 하지만 그래도 내가 코딩을 하는 인간인데 한번쯤 만들어보는것이 좋지 않나 하여 이렇게 기본적인 블로그를 만들었다.\n\n# 사용한 스텍\n\n- Next.js\n- React.js\n- ContantLayer\n\n앞으로 무언가 만들게 된다면 그 과정을 이곳에 기록할 예정이며, 포스트 뿐만 아니라 기능상으로도 업데이트를 통해 좀더 블로그 구실을 하는 블로그를 만들어 볼까 한다.\n",
+            "url": "https://cree-devblog.net/blog/2023_03_29_첫글",
+            "title": "첫 글",
+            "summary": "블로그 제작후 첫 소감",
+            "image": "https://cree-devblog.net//java-jeans.jpg",
+            "date_modified": "2023-03-29T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.net"
+            },
+            "tags": [
+                "블로그",
+                "첫글"
+            ]
+        },
+        {
+            "id": "2023_03_30_ProgressBar+Comment.mdx",
+            "content_html": "\n---\n\n# 개발할 부분 선정 이유\n\n### ProgressBar\n\n> 이야 이거 멋있다!\n\n참고용으로 다른 분들의 블로그를 찾아볼때마다 눈에 들어오던것이었다.\n사실 막 그닥 필요한 장치는 아니지만 막 어려워 보이지 않아서 만들어보기로 했다\n\n### Comment\n\n> 블로그라면 있어야지!\n\n기술블로그니까! 있어야지! 라는 마음으로 도입해보기로 했다.\n\n---\n\n## ProgressBar\n\nprogressbar의 작동원리는 이렇다.\n\n1. 페이지 로드시 지금 스크롤과 뷰포트를 읽어와 퍼센트로 변환한다.\n2. 스크롤 리스너를 통해 스크롤이 발생할때마다 읽어온다.\n3. 읽어온 스크롤 퍼센트(?)에 따라 ProgressBar의 X를 Translate를 통해 변화시킨다.\n\n전체 코드는 이렇다.\n\n```javascript\nimport { useEffect, useState } from \"react\";\nconst Progressbar = () => {\n  const [percentage, setPercentage] = useState(100);\n\n  const getScrollPercentage = () => {\n    const scroll = document.documentElement.scrollTop;\n    const scrollHeight = document.documentElement.scrollHeight;\n    const clientHeight = document.documentElement.clientHeight;\n    const viewport = scrollHeight - clientHeight;\n    const percentage = (scroll / viewport) * 100;\n    return setPercentage(percentage);\n  };\n\n  useEffect(() => {\n    getScrollPercentage();\n    window.addEventListener(\"scroll\", getScrollPercentage);\n    return () => window.removeEventListener(\"scroll\", getScrollPercentage);\n  }, []);\n  return (\n    <div className=\"fixed top-0 left-0 right-0\">\n      <div\n        className=\"bg-red-500 h-1\"\n        style={{ transform: `translateX(${percentage - 100}%)` }}\n      />\n    </div>\n  );\n};\nexport default Progressbar;\n```\n\n여기서 `useEffect` 부분을 보면 `getScrollPercentage()`가 한번 호출 되고 난 뒤 윈도우리스너를 등록하는데\n이는 글이 너무 짧아서 스크롤이 발생하지 않는 경우 Progressbar가 0%에서 고정되어있는 현상을 해결하기 위해 작성되었다.\n\n```javascript\nconst getScrollPercentage = () => {\n  const scroll = document.documentElement.scrollTop;\n  const scrollHeight = document.documentElement.scrollHeight;\n  const clientHeight = document.documentElement.clientHeight;\n  const viewport = scrollHeight - clientHeight;\n  const percentage = (scroll / viewport) * 100;\n  return setPercentage(percentage);\n};\n```\n\n이부분은 스크롤을 %로 구하는 부분이다.\n스크롤을 viewport값으로 나눠서 퍼센트로 구하는 코드이다.\n\n```\n<div className=\"fixed top-0 left-0 right-0\">\n  <div\n    className=\"bg-red-500 h-1\"\n    style={{ transform: `translateX(${percentage - 100}%)` }}\n  />\n</div>\n```\n\ntailwindCss 를 사용했으며\n`fixed top-0 left-0 right-0`는 progressbar를 최상단에 고정하는 부분이다.  \n`bg-red-500 h-1`는 progressbar를 빨간색으로 하고, 높이를 정하는 부분이다.  \n`` style={{transform: `translateX(${(percentage - 100)}%)`}} ``는 퍼센트에 따라서 길이를 변형시키는 코드이다.  \n`percentage - 100` 인 이유는 왼쪽부터 오른쪽으로 진행해야 하기 때문이다.\n(궁금하면 그냥 `percentage`해봐라 뭔 소리인지 이해할것이다.)\n\n이렇게 Next.js의 컴포넌트로 구현을 해두었다.\n\n---\n\n### Comment\n\n댓글은 DB를 만들어서 API를 통해 구현해도 되지만 간단한 사이드프로젝트이기때문에 DB구현부터 백앤드 구현은 좀 투머치라고 생각해서 이미 있는 방법들중 Giscus를 이용하기로 했다.\n\ngiscus를 이용하는 이유는 다음과 같다.\n\n1. 일단 공식 문서가 한글화되어있는 점에서 접근성이 편하다.\n2. 깃허브의 토론을 이용하기때문에 깃허브를 사용하는 사람이라면 접근성도, 보기도 좋다.\n3. Next.js용 페키지가 있다...(구현할거 없어서 짱 좋음)\n\n간단하게 사용하는법을 적어두자면  \n[giscus페이지](https://giscus.app/ko)\n\n    1. 깃헙에서 Public으로 레파지토리를 하나 판다(블로그를 배포한다고 파둔 레파지토리가 Public이라면 그냥 그거 써도 된다.)\n    2. 토론 탭을 활성화 시킨다.(세팅 들어가서 General에서 쭉 내리다 보면 있다.)\n    3. giscus문서에 가서 필요한것들을 적는다.(문서 링크는 위쪽에 있다.)\n    4. 나온 값들을 일단 킵해둔다.\n    5. giscus 페키지를 설치한다.\n    \t(React나 Next.js라면\n    \tyarn add @giscus/react\n    \tor\n    \tnpm i @giscus/react)\n    를 통해 설치할수있다.\n    6.잘 쓴다.\n\n다음은 전체 코드이다.\n\n```javascript\nimport Giscus from \"@giscus/react\";\n\nconst Comment = () => {\n  return (\n    <div className=\"border-t-[100px] border-transparent\">\n      <Giscus\n        id=\"comments\"\n        repo=\"내 레파지토리에욧!\"\n        repoId=\"내 레파지토리 아이디에욧!\"\n        category=\"General\"\n        categoryId=\"문서에 기입할거 다 적으면 알아서 나와욧!\"\n        mapping=\"pathname\"\n        reactionsEnabled=\"1\"\n        emitMetadata=\"0\"\n        inputPosition=\"top\"\n        theme=\"light\"\n        lang=\"ko\"\n        loading=\"lazy\"\n      />\n    </div>\n  );\n};\n\nexport default Comment;\n```\n\n(진짜 뭐 없다...)\n\n이렇게 구현된 것들은 지금 이 포스트를 보고있는 지금 만나볼수 있다.\n\n그럼 오늘은 이만.. 자자..\n",
+            "url": "https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment",
+            "title": "ProgressBar + Comment 구현",
+            "summary": "스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현",
+            "image": "https://cree-devblog.net/images/그냥크리.jpeg",
+            "date_modified": "2023-03-30T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.net"
+            },
+            "tags": [
+                "Next.js",
+                "React",
+                "TailwindCss",
+                "Giscus",
+                "progressbar",
+                "comment"
+            ]
+        },
+        {
+            "id": "2023_04_05_썸네일, 태그,다크모드 구현(1).mdx",
+            "content_html": "\n---\n\n생각보다 자주 블로그를 수정하면서도 포스팅하기가 귀찮아져서 미루고 있다가 진행한 순서대로 차근차근 써보려고 한다.\n\n# 수정된 부분!\n\n1. 다크모드가 추가되었다.(이 포스트에선 이부분만 다룬다.)\n2. 상단 레이아웃이 따라다닌다.\n3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.\n\n## 다크모드\n\n    \t> \"다크모드는 개발자의 아주 소중한 친구지\"\n\n그냥 급하게 지어내서 만들어본 말이다.  \n그만큼 오랜시간 화면을 보는 개발자에게 있어서 다크모드는 중요하기에 한번 추가해 봤다.\n\n일단 우리가 지금 사용하는 tailwind css는 아주 간단하게 다크모드를 지원한다.\n\n`dark: ` 라는 키워드를 통해 다크모드시 적용될 css를 기입할수있다.\n\n이런식으로 적용한 부분을 하나 하나 다 쓰자고 하면 너무 많으니 대표적으로 몇개만 가져온다면\n\n```typescript\n\n<header\nclassName={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}\n>\n```\n\n이렇게 원랜 흰색이지만 다크모드에서 어두운 회색으로 바뀌게 할수 있다.\n\n그외에 너무 자주 쓰이는 것들은 `global.css` 에 적용해 두었는데 기본적인 text가 흰색으로 바뀌거나 배경이 짙은 회색으로 바뀌게 하는 코드다\n\n```css\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer base {\n  body {\n    @apply bg-white text-black dark:bg-gray-800 dark:text-white;\n  }\n}\n```\n\n근데 이런식으로 하면 tailwind css는 기본적으로 `media`에 따라 다크모드를 조절하게 되어서 기기의 세팅값만을 따라가게 된다.\n\n분명 심플하고 섹시한 구현방식은 맞지만 내가 원하는건 그것이 아니다.\n\n뭔가 장난기 넘치고 쓸모없어 보이게 전구를 키면 밝아지고 끄면 어두워지는 그런걸 원한단 말이다.\n\n이걸 구현할수 있는 방법이 무엇일까 하고 구글링을 열심히 해보았다.\n\n그 결과 찾아낸것이\n\n`tailwindcss.config`에서 `darkmode`속성을 `\"class\"` 로 지정해주는 것이었다.\n\n```typescript\nmodule.exports = {\n  content: [\n    \"./pages/**/*.{js,ts,jsx,tsx}\",\n    \"./components/**/*.{js,ts,jsx,tsx}\",\n  ],\n  darkMode: \"class\",\n  theme: {\n    extend: {},\n  },\n  plugins: [require(\"@tailwindcss/typography\")],\n};\n```\n\n이렇게 되면 `_app.tsx` (최상위 테그라고 생각하자 그냥)의 classname에서 다크모드를 지정해줄수 있다.\n\n그런데 이렇게 하면 좀 뭔가 어설퍼진다.\n\n글의 색만 바뀌고 여전히 배경색은 시스템 테마를 따라가게 된다.\n\n이유는 막 엄청 잘 알겠는건 아니지만 배경과같은 요소는 classname을 바꾼다고해서 media를 아에 무시하지 않는 모양이었다?..\n(이유를 아는 분은 좀 알려주세요 )\n\n그래서 검색을 또 열심히 한 결과 `next-themes`를 사용하기로 했다.\n\n> npm install next-themes\n> or\n> yarn add next-themes\n\n를 통해 가볍게 설치할수 있다.\n\n`next-themes`를 사용하면 `useTheme()`라는 훅과 `ThemeProvider`라는 컴포넌트를 사용할수 있다.\n\n이제 최상위 엘리먼트를 `ThemeProvider`로 감싸고 `attribute` 속성을 `class`로 설정한다.\n\n```typescript\nimport { ThemeProvider } from \"next-themes\";\nimport \"../styles/globals.css\";\n\nimport type { AppProps } from \"next/app\";\n\nfunction MyApp({ Component, pageProps }: AppProps) {\n  return (\n    <ThemeProvider attribute=\"class\">\n      <Component {...pageProps} />\n    </ThemeProvider>\n  );\n}\n\nexport default MyApp;\n```\n\n이제 우리 맘대로 태마를 바꿀수 있게 되었다.\n\n그럼 간단하게 ` useTheme`을 사용해 테마 변경 버튼을 만들어 본다.\n\n```typescript\nimport { useTheme } from \"next-themes\";\nimport Image from \"next/image\";\n\nconst Togglebtn = () => {\n  const { theme, setTheme } = useTheme();\n\n  return (\n    <button\n      type=\"button\"\n      onClick={() => setTheme(theme === \"dark\" ? \"light\" : \"dark\")}\n      // 클릭시 다크모드면 라이트로 바꿈\n      className={`mr-3 animate-pulse`}\n    >\n      {theme === \"light\" ? (\n        <Image\n          src={`/on.png`}\n          alt={\"\"}\n          width={30}\n          height={30}\n          className={`rounded-3xl hover:cursor-pointer`}\n        />\n      ) : (\n        <Image\n          src={`/off.png`}\n          alt={\"\"}\n          width={30}\n          height={30}\n          className={`rounded-3xl hover:cursor-pointer`}\n        />\n      )}\n    </button>\n  );\n};\n\nexport default Togglebtn;\n```\n\n`useTheme`은 약간 테마 전용 `useState`와 비슷하다고 생각하면 된다.\n\n이렇게 다크모드가 추가되었다.\n",
+            "url": "https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)",
+            "title": "썸네일, 태그, 다크모드 구현(1)",
+            "summary": "tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현",
+            "image": "https://cree-devblog.net/images/그냥크리.jpeg",
+            "date_modified": "2023-04-05T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.net"
+            },
+            "tags": [
+                "tailwindcss",
+                "next.js",
+                "blog",
+                "darkmode",
+                "tags"
+            ]
+        },
+        {
+            "id": "2023_04_05_썸네일, 태그,다크모드 구현(2).mdx",
+            "content_html": "\n---\n\n1탄이 다크모드만으로 좀 길어진것 같아 2편으로 잘라서 나머지를 한번 해보려고 한다.\n\n# 수정된 부분!\n\n1. 다크모드가 추가되었다.\n2. 상단 레이아웃이 따라다닌다.\n3. blog 페이지에서 각 포스팅별 썸네일과 tag가 표시된다.\n\n나머지 레이아웃과 tag를 이번 포스트에서 알아보자\n\n## 레이아웃?\n\n사실 뭐 별거 없다...\n\n```jsx\n<header\nclassName={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}\n>\n\t<div\n\tclassName={`w-full flex flex-row justify-between items-center my-1 shadow-md p-3 z-50`\n\t>\n\t\t<Link href=\"/\">\n\t\t\t<a className={\"flex flex-row items-center\"}>\n\t\t\t\t<Image\n\t\t\t\tsrc={`/java-jeans.jpg`}\n\t\t\t\talt=\"로고\"\n\t\t\t\twidth={40}\n\t\t\t\theight={40}\n\t\t\t\tobjectFit={`cover`}\n\t\t\t\tclassName={`rounded-full`}\n\t\t\t\t/>\n\t\t\t\t<span className={`mx-2 font-extralight text-lg`}>\n\t\t\t\t\t{metadata.title}\n\t\t\t\t</span>\n\t\t\t</a>\n\t\t</Link>\n\t\t<Togglebtn />\n\t\t<Nav />\n\t</div>\n</header>\n```\n\n저기서 `header`부분에 `fixed` 를 이용해서 상단에 절대 좌표로 고정하면 된다...  \n개선 하긴 했으니까 넣은건데 굳이 머 티를 낼것인가 싶긴 하다.\n\n## 썸네일\n\n어떤 식으로 만들까 고민을 했던 부분이다.\n\n현제 블로그의 구조는 `./post` 에 마크다운으로 작성된 글을 올리면 `contantlayer`에서 빌드시 자동으로 JSON으로 바꿔주고, 이것을 불러오는 형식으로 작동한다.\n\n즉 내가 편하려면 이 마크다운에서 썸넬을 결정할수 있어야 한다고 생각을 했다.\n\n그러기 위해서 `contantlayer.config`를 수정했어야 했는데 수정하는 김에 tags기능도 같이 구현해보기로 했다.\n\n```Typescript\nimport { defineDocumentType, makeSource } from \"contentlayer/source-files\";\n\nexport const Post = defineDocumentType(() => ({\n\tname: \"Post\",\n\tcontentType: \"mdx\",\n\tfilePathPattern: `**/*.mdx`,\n\tfields: {\n\t\ttitle: { type: \"string\", required: true },\n\t\tdate: { type: \"string\", required: true },\n\t\tdescription: { type: \"string\", required: true },\n\t\ttags: { type: \"list\", of: { type: \"string\" } },\n\t\timage: { type: \"string\" },\n\t},\n}));\n\nexport default makeSource({\n\tcontentDirPath: \"posts\",\n\tdocumentTypes: [Post],\n});\n```\n\n`fields`항목에서 tags와 image를 추가했다.\n\n이렇게 되면 mdx형식으로 포스팅을 작성할때 두 항목을 기입해 자동으로 JSON을 생성하도록 할수있다.\n\n```\n---\ntitle: 썸네일, 태그, 다크모드 구현(1)\ndate: 2023-04-05\ndescription: tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현\ntags: [tailwindcss, next.js, blog, darkmode, tags]\nimage: /java-jeans.jpg\n---\n```\n\n(이런 식으로 기입한다.)\n\n그럼 자동으로 생성된 JSON에는 image항목에 내가 기입한 이미지의 위치가 들어가게 될것이고, 이걸 읽어와서 옆에 이쁘게 놓아주기만 하면 되는것이다.\n\n다만!.. 이미지를 넣지 않는 경우 그냥 횡 하니 비어있는것이 꼴보기 싫기에 간단하게 제목정도를 적어두는 회색 창을 하나 만들것이다.\n\n```Typescript\n<div className=\"flex-initial w-[30%] relative\">\n\t{imagesrc !== undefined ? (\n\t\t<Image\n\t\tsrc={imagesrc}\n\t\talt={title}\n\t\tquality={80}\n\t\tlayout=\"fill\"\n\t\tobjectFit=\"cover\"\n\t\tobjectPosition=\"center\"\n\t\tclassName={`absolute, rounded-2xl`}\n\t\t/>\n\t) : (\n\t\t<div className=\"absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white\">\n\t\t\t{title}\n\t\t</div>\n\t)}\n</div>\n```\n\n또한 테그 기능을 구현할 것이니, 리스트 형태의 태그를 출력하는 간단한 span도 하나 만들어 보자\n\n```Typescript\n{tags !== undefined ? tags.map((tag, index) => {\n\treturn (\n\t\t<span\n\t\tkey={index}\n\t\tclassName={`text-xs text-gray-400 font-light mt-1`}\n\t\t>\n\t\t\t#{tag}\n\t\t</span>\n\t\t);\n\t})\n: null}\n```\n\n(전체 코드)\n\n```javascript\nimport Link from \"next/link\";\nimport Image from \"next/image\";\n\nconst BlogPost = ({ date, title, des, slug, tags, imagesrc }) => {\n  return (\n    <Link href={`/blog/${slug}`} passHref>\n      <a className=\"w-full my-7 hover:-translate-x-1.5 flex\">\n        <div className=\"flex-initial w-[70%]\">\n          <div className=\"font-medium text-xs text-gray-400\">\n            {date.split(\"T\")[0]}\n          </div>\n          <div className={`font-extrabold text-2xl mt-2`}>{title}</div>\n          <div className={`font-medium text-gray-600 text-xl mt-1`}>{des}</div>\n          {tags !== undefined\n            ? tags.map((tag, index) => {\n                return (\n                  <span\n                    key={index}\n                    className={`text-xs text-gray-400 font-light mt-1`}\n                  >\n                    #{tag}\n                  </span>\n                );\n              })\n            : null}\n        </div>\n        <div className=\"flex-initial w-[30%] relative\">\n          {imagesrc !== undefined ? (\n            <Image\n              src={imagesrc}\n              alt={title}\n              quality={80}\n              layout=\"fill\"\n              objectFit=\"cover\"\n              objectPosition=\"center\"\n              className={`absolute, rounded-2xl`}\n            />\n          ) : (\n            <div className=\"absolute bg-gray-500 rounded-2xl w-full h-full text-center py-8 font-bold text-md text-white\">\n              {title}\n            </div>\n          )}\n        </div>\n      </a>\n    </Link>\n  );\n};\n\nexport default BlogPost;\n```\n\n이렇게 된다.\n\n관련된 정보는 `blog/index.tsx`에서 받아오게 된다.\n\n```typescript\nconst Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {\n  return (\n    <Container>\n      <div className={`mt-10 flex flex-col`}>\n        {posts.map((post) => (\n          <BlogPost\n            date={post.date}\n            title={post.title}\n            des={post.description}\n            slug={post._raw.flattenedPath}\n            key={post._id}\n            tags={post.tags}\n            imagesrc={post.image}\n          />\n        ))}\n      </div>\n    </Container>\n  );\n};\n```\n\n다음 포스팅에서 돌아오게따\n바꾼거 이것저것 있는데 정리하려니 귀찮다.\n",
+            "url": "https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)",
+            "title": "썸네일, 태그, 다크모드 구현(2)",
+            "summary": "tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현",
+            "image": "https://cree-devblog.net/images/그냥크리.jpeg",
+            "date_modified": "2023-04-05T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.net"
+            },
+            "tags": [
+                "tailwindcss",
+                "next.js",
+                "blog",
+                "darkmode",
+                "tags"
+            ]
+        }
+    ]
+}
