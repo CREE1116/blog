@@ -22,7 +22,26 @@ const Container = (props) => {
   return (
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
+        <Icon />
         <title>{meta.title}</title>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href="/rss/rss.xml"
+          title="RSS"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          href="/rss/rss-atom.xml"
+          title="RSS Atom"
+        />
+        <link
+          rel="alternate"
+          type="application/json"
+          href="/rss/feed.json}"
+          title="JSON Feed"
+        />
         <meta property="og:type" content="blog" />
         <meta
           property="og:title"
@@ -54,25 +73,6 @@ const Container = (props) => {
             <meta name="description" content={meta.description} />
           </>
         )}
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          href="/rss/rss.xml"
-          title="RSS"
-        />
-        <link
-          rel="alternate"
-          type="application/atom+xml"
-          href="/rss/rss-atom.xml"
-          title="RSS Atom"
-        />
-        <link
-          rel="alternate"
-          type="application/json"
-          href="/rss/feed.json}"
-          title="JSON Feed"
-        />
-        <Icon />
       </Head>
       <header
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
