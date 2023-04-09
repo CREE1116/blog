@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cree-devblog.net</id>
-    <title>크리의 끄적끄적</title>
-    <updated>2023-04-06T15:08:51.250Z</updated>
+    <title>[크리의 끄적끄적] </title>
+    <updated>2023-04-09T11:18:28.795Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Cree</name>
@@ -10,7 +10,7 @@
         <uri>https://cree-devblog.net</uri>
     </author>
     <link rel="alternate" href="https://cree-devblog.net"/>
-    <link rel="self" href="https://cree-devblog.net/rss/atom"/>
+    <link rel="self" href="https://cree-devblog.net/rss/rss-atom.xml"/>
     <subtitle>간단한 개발을 하는 크리의 블로그 입니다</subtitle>
     <logo>https://cree-devblog.net/images/그냥크리.jpeg</logo>
     <rights>All rights reserved since 2023-03-29, Cree</rights>

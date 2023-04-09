@@ -11,7 +11,10 @@ const master = {
 };
 
 const feed = new Feed({
-  title: metadata.title,
+  title:
+    metadata.title.length > 0
+      ? `[크리의 끄적끄적] ${metadata.title}`
+      : metadata.site_name,
   description: metadata.description,
   id: metadata.siteUrl,
   link: metadata.siteUrl,
@@ -20,8 +23,8 @@ const feed = new Feed({
   copyright: `All rights reserved since 2023-03-29, ${master.name}`,
   generator: "generate-rss",
   feedLinks: {
-    json: `${metadata.siteUrl}/rss/json`,
-    atom: `${metadata.siteUrl}/rss/atom`,
+    json: `${metadata.siteUrl}/rss/feed.json`,
+    atom: `${metadata.siteUrl}/rss/rss-atom.xml`,
   },
   author: master,
 });

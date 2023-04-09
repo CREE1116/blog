@@ -1,8 +1,8 @@
 {
     "version": "https://jsonfeed.org/version/1",
-    "title": "크리의 끄적끄적",
+    "title": "[크리의 끄적끄적] ",
     "home_page_url": "https://cree-devblog.net",
-    "feed_url": "https://cree-devblog.net/rss/json",
+    "feed_url": "https://cree-devblog.net/rss/feed.json",
     "description": "간단한 개발을 하는 크리의 블로그 입니다",
     "icon": "https://cree-devblog.net/images/그냥크리.jpeg",
     "author": {
@@ -16,7 +16,7 @@
             "url": "https://cree-devblog.net/blog/2023_03_29_첫글",
             "title": "첫 글",
             "summary": "블로그 제작후 첫 소감",
-            "image": "https://cree-devblog.net//java-jeans.jpg",
+            "image": "https://cree-devblog.net//images/java-jeans.jpg",
             "date_modified": "2023-03-29T00:00:00.000Z",
             "author": {
                 "name": "Cree",

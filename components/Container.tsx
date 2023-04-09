@@ -4,7 +4,10 @@ import metadata from "../data/metadata";
 import Nav from "./Nav";
 import Link from "next/link";
 import Togglebtn from "./Togglebtn";
+import Icon from "./Icon";
+import Metatag from "./Metatag";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Container = (props) => {
   const meta = {
@@ -16,55 +19,13 @@ const Container = (props) => {
     ...props.customMeta,
   };
   const router = useRouter();
-
+  useEffect(() => console.log(router), [router]);
   return (
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{meta.title}</title>
-        <link rel="icon" href="/images/그냥 크리.jpeg" />
-        {meta.keyword !== undefined ? (
-          <>
-            <meta
-              property="og:description"
-              content={meta.description + "\n#" + meta.keyword.join(" #")}
-            />
-            <meta content={meta.keyword.join(", ")} name="keyword" />
-            <meta
-              name="description"
-              content={meta.description + "\n#" + meta.keyword.join(" #")}
-            />
-          </>
-        ) : (
-          <>
-            <meta property="og:description" content={meta.description} />
-            <meta name="description" content={meta.description} />
-          </>
-        )}
-        <meta property="og:type" content="blog" />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:site_name" content={meta.site_name} />
-        <meta property="og:url" content={meta.siteUrl + router.asPath} />
-        <meta property="og:image" content="/images/그냥 크리.jpeg" />
-        <meta property="og:locale" content="kr_KO" />
-
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          href={`${meta.siteUrl}/rss/rss.xml}`}
-          title="RSS"
-        />
-        <link
-          rel="alternate"
-          type="application/atom+xml"
-          href={`${meta.siteUrl}/rss/rss-atom.xml}`}
-          title="RSS Atom"
-        />
-        <link
-          rel="alternate"
-          type="application/json"
-          href={`${meta.siteUrl}/rss/feed.json}`}
-          title="JSON Feed"
-        />
+        <Metatag {...meta} />
+        <Icon />
       </Head>
       <header
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
-        <title>크리의 끄적끄적</title>
+        <title>[크리의 끄적끄적] </title>
         <link>https://cree-devblog.net</link>
         <description>간단한 개발을 하는 크리의 블로그 입니다</description>
-        <lastBuildDate>Thu, 06 Apr 2023 15:08:51 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Apr 2023 11:18:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
         <image>
-            <title>크리의 끄적끄적</title>
+            <title>[크리의 끄적끄적] </title>
             <url>https://cree-devblog.net/images/그냥크리.jpeg</url>
             <link>https://cree-devblog.net</link>
         </image>
@@ -39,7 +39,7 @@
             <author>leejongmin774@gmail.com (Cree)</author>
             <category>블로그</category>
             <category>첫글</category>
-            <enclosure url="https://cree-devblog.net//java-jeans.jpg" length="0" type="image/jpg"/>
+            <enclosure url="https://cree-devblog.net//images/java-jeans.jpg" length="0" type="image/jpg"/>
         </item>
         <item>
             <title><![CDATA[ProgressBar + Comment 구현]]></title>
