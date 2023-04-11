@@ -44,11 +44,7 @@ const Container = (props) => {
         <meta name="description" content={meta.description} />
         <meta
           property="og:title"
-          content={
-            metadata.title !== "크리의 끄적끄적"
-              ? `[크리의 끄적끄적] ${meta.title}`
-              : meta.title
-          }
+          content={`[크리의 끄적끄적] ${meta.title}`}
           key="og-title"
         />
         <meta
@@ -79,7 +75,7 @@ const Container = (props) => {
           name="twitter:title"
           content={
             meta.title !== "크리의 끄적끄적"
-              ? `[크리의 끄적끄적] ${meta.title}`
+              ? `${meta.site_name} | ${meta.title}`
               : meta.title
           }
           key="tw-title"
