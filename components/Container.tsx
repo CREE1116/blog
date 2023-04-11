@@ -22,7 +22,7 @@ const Container = (props) => {
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{meta.title}</title>
-        <link rel="icon" href="Icon/favicon.ico" />
+        <link rel="icon" href={`${meta.siteUrl}/Icon/favicon.ico`} />
         <link
           rel="alternate"
           type="application/rss+xml"
