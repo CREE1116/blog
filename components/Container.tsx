@@ -4,26 +4,24 @@ import metadata from "../data/metadata";
 import Nav from "./Nav";
 import Link from "next/link";
 import Togglebtn from "./Togglebtn";
-import Icon from "./Icon";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Container = (props) => {
+  const router = useRouter();
   const meta = {
     title: metadata.title,
     description: metadata.description,
     author: metadata.author,
     site_name: metadata.site_name,
     siteUrl: metadata.siteUrl,
+    url: router.asPath,
     ...props.customMeta,
   };
-  const router = useRouter();
-  useEffect(() => console.log(router), [router]);
   return (
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
-        <Icon />
         <title>{meta.title}</title>
+        <link rel="icon" href="Icon/favicon.ico" />
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -42,37 +40,44 @@ const Container = (props) => {
           href="/rss/feed.json}"
           title="JSON Feed"
         />
-        <meta property="og:type" content="blog" />
+        <meta name="description" content={meta.description} />
         <meta
           property="og:title"
           content={
-            meta.title !== "크리의 끄적끄적"
-              ? `${meta.site_name} ${meta.title}`
+            metadata.title !== "크리의 끄적끄적"
+              ? `[크리의 끄적끄적] ${meta.title}`
               : meta.title
           }
+          key="og-title"
         />
-        <meta property="og:site_name" content={meta.site_name} />
-        <meta property="og:url" content={`https://cree-devblog.net/`} />
-        <meta property="og:image" content="/images/그냥 크리.jpeg" />
-        <meta property="og:locale" content="kr_KO" />
-        {meta.keyword !== undefined ? (
-          <>
-            <meta
-              property="og:description"
-              content={meta.description + "\n#" + meta.keyword.join(" #")}
-            />
-            <meta content={meta.keyword.join(", ")} name="keyword" />
-            <meta
-              name="description"
-              content={meta.description + "\n#" + meta.keyword.join(" #")}
-            />
-          </>
-        ) : (
-          <>
-            <meta property="og:description" content={meta.description} />
-            <meta name="description" content={meta.description} />
-          </>
-        )}
+        <meta
+          property="og:description"
+          content={meta.description}
+          key="og-desc"
+        />
+        <meta
+          property="og:url"
+          content={`${meta.siteUrl}${meta.url}`}
+          key="og-url"
+        />
+        <meta property="og:image" content={meta.image} key="og-image" />
+        <meta property="og:site_name" content="mysitename" key="og-site" />
+        <meta
+          name="twitter:title"
+          content={
+            meta.title !== "크리의 끄적끄적"
+              ? `[크리의 끄적끄적] ${meta.title}`
+              : meta.title
+          }
+          key="tw-title"
+        />
+        <meta
+          name="twitter:description"
+          content={meta.description}
+          key="tw-desc"
+        />
+        <meta name="twitter:image" content={meta.image} key="tw-image" />
+        <meta name="twitter:card" content="summary_large_image" key="tw-card" />
       </Head>
       <header
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}

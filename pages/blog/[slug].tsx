@@ -27,6 +27,7 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
     description: post.description,
     date: new Date(post.date).toISOString(),
     keyword: post.tags,
+    image: post.image,
   };
 
   useEffect(() => {
