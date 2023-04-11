@@ -64,7 +64,7 @@ const Container = (props) => {
           property="og:image"
           content={
             meta.image === undefined
-              ? `${meta.siteUrl}/images/그냥 크리.jpg`
+              ? `${meta.siteUrl}/images/normal-cree.jpg`
               : `${meta.siteUrl}${meta.image}`
           }
           key="og-image"
@@ -92,7 +92,7 @@ const Container = (props) => {
           name="twitter:image"
           content={
             meta.image === undefined
-              ? `${meta.siteUrl}/images/그냥 크리.jpg`
+              ? `${meta.siteUrl}/images/normal-cree.jpg`
               : `${meta.siteUrl}${meta.image}`
           }
           key="tw-image"
@@ -108,7 +108,7 @@ const Container = (props) => {
           <Link href="/">
             <a className={"flex flex-row items-center"}>
               <Image
-                src={`/images/그냥 크리.jpg`}
+                src={`/images/normal-cree.jpg`}
                 alt="로고"
                 width={40}
                 height={40}

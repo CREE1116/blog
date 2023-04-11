@@ -16,8 +16,8 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           <Image
             src={
               theme === "dark"
-                ? `/images/산화해버린 크리.jpg`
-                : `/images/그냥 크리.jpg`
+                ? `/images/burned-cree.jpg`
+                : `/images/normal-cree.jpg`
             }
             alt="대표 이미지"
             width={`100%`}
