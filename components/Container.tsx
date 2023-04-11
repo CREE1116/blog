@@ -68,7 +68,9 @@ const Container = (props) => {
         <meta
           property="og:image"
           content={
-            meta.image === undefined ? "/images/그냥 크리.jpeg" : meta.imgae
+            meta.image === undefined
+              ? `${meta.siteUrl}/images/그냥 크리.jpeg`
+              : `${meta.siteUrl}${meta.image}`
           }
           key="og-image"
         />
@@ -94,7 +96,9 @@ const Container = (props) => {
         <meta
           name="twitter:image"
           content={
-            meta.image === undefined ? "/images/그냥크리.jpeg" : meta.imgae
+            meta.image === undefined
+              ? `${meta.siteUrl}/images/그냥 크리.jpeg`
+              : `${meta.siteUrl}${meta.image}`
           }
           key="tw-image"
         />
