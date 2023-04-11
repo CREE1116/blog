@@ -17,6 +17,7 @@ const Container = (props) => {
     url: router.asPath,
     ...props.customMeta,
   };
+  console.log(meta);
   return (
     <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
@@ -52,7 +53,11 @@ const Container = (props) => {
         />
         <meta
           property="og:description"
-          content={meta.description}
+          content={
+            meta.keyword === undefined
+              ? meta.description
+              : `${meta.description}\n#${meta.keyword.join(" #")}`
+          }
           key="og-desc"
         />
         <meta
@@ -60,8 +65,14 @@ const Container = (props) => {
           content={`${meta.siteUrl}${meta.url}`}
           key="og-url"
         />
-        <meta property="og:image" content={meta.image} key="og-image" />
-        <meta property="og:site_name" content="mysitename" key="og-site" />
+        <meta
+          property="og:image"
+          content={
+            meta.image === undefined ? "/images/그냥크리.jpeg" : meta.imgae
+          }
+          key="og-image"
+        />
+        <meta property="og:site_name" content={meta.site_name} key="og-site" />
         <meta
           name="twitter:title"
           content={
@@ -73,10 +84,20 @@ const Container = (props) => {
         />
         <meta
           name="twitter:description"
-          content={meta.description}
+          content={
+            meta.keyword === undefined
+              ? meta.description
+              : `${meta.description}\n#${meta.keyword.join(" #")}`
+          }
           key="tw-desc"
         />
-        <meta name="twitter:image" content={meta.image} key="tw-image" />
+        <meta
+          name="twitter:image"
+          content={
+            meta.image === undefined ? "/images/그냥크리.jpeg" : meta.imgae
+          }
+          key="tw-image"
+        />
         <meta name="twitter:card" content="summary_large_image" key="tw-card" />
       </Head>
       <header
