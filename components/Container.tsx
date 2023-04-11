@@ -68,7 +68,7 @@ const Container = (props) => {
         <meta
           property="og:image"
           content={
-            meta.image === undefined ? "/images/그냥크리.jpeg" : meta.imgae
+            meta.image === undefined ? "/images/그냥 크리.jpeg" : meta.imgae
           }
           key="og-image"
         />
