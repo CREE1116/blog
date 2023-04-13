@@ -98,6 +98,9 @@ const Container = (props) => {
           key="tw-image"
         />
         <meta name="twitter:card" content="summary_large_image" key="tw-card" />
+        {meta.keyword !== undefined ? (
+          <meta name="keyword" content={meta.keyword} />
+        ) : null}
       </Head>
       <header
         className={`fixed top-0 left-0 right-0 bg-white dark:bg-gray-800`}
