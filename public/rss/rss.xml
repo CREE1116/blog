@@ -4,19 +4,19 @@
         <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
         <link>https://cree-devblog.kro.kr</link>
         <description>간단한 개발을 하는 크리의 블로그 입니다</description>
-        <lastBuildDate>Thu, 13 Apr 2023 13:45:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 20 Mar 2024 02:49:07 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>generate-rss</generator>
         <language>ko</language>
         <image>
             <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
-            <url>https://cree-devblog.kro.kr/images/그냥크리.jpeg</url>
+            <url>https://cree-devblog.kro.kr/images/normal-cree.jpg</url>
             <link>https://cree-devblog.kro.kr</link>
         </image>
         <copyright>All rights reserved since 2023-03-29, Cree</copyright>
         <item>
             <title><![CDATA[첫 글]]></title>
-            <link>https://cree-devblog.net/blog/2023_03_29_첫글</link>
+            <link>https://cree-devblog.kro.kr/blog/2023_03_29_첫글</link>
             <guid>2023_03_29_첫글.mdx</guid>
             <pubDate>Wed, 29 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[블로그 제작후 첫 소감]]></description>
@@ -39,11 +39,11 @@
             <author>leejongmin774@gmail.com (Cree)</author>
             <category>블로그</category>
             <category>첫글</category>
-            <enclosure url="https://cree-devblog.net//images/java-jeans.jpg" length="0" type="image/jpg"/>
+            <enclosure url="https://cree-devblog.kro.kr//images/java-jeans.jpg" length="0" type="image/jpg"/>
         </item>
         <item>
             <title><![CDATA[ProgressBar + Comment 구현]]></title>
-            <link>https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment</link>
+            <link>https://cree-devblog.kro.kr/blog/2023_03_30_ProgressBar+Comment</link>
             <guid>2023_03_30_ProgressBar+Comment.mdx</guid>
             <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현]]></description>
@@ -212,11 +212,11 @@ export default Comment;
             <category>Giscus</category>
             <category>progressbar</category>
             <category>comment</category>
-            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+            <enclosure url="https://cree-devblog.kro.kr/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
         </item>
         <item>
             <title><![CDATA[썸네일, 태그, 다크모드 구현(1)]]></title>
-            <link>https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)</link>
+            <link>https://cree-devblog.kro.kr/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)</link>
             <guid>2023_04_05_썸네일, 태그,다크모드 구현(1).mdx</guid>
             <pubDate>Wed, 05 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></description>
@@ -383,11 +383,11 @@ export default Togglebtn;
             <category>blog</category>
             <category>darkmode</category>
             <category>tags</category>
-            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+            <enclosure url="https://cree-devblog.kro.kr/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
         </item>
         <item>
             <title><![CDATA[썸네일, 태그, 다크모드 구현(2)]]></title>
-            <link>https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)</link>
+            <link>https://cree-devblog.kro.kr/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)</link>
             <guid>2023_04_05_썸네일, 태그,다크모드 구현(2).mdx</guid>
             <pubDate>Wed, 05 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></description>
@@ -616,11 +616,11 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
             <category>blog</category>
             <category>darkmode</category>
             <category>tags</category>
-            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+            <enclosure url="https://cree-devblog.kro.kr/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
         </item>
         <item>
             <title><![CDATA[SEO에 관련된 것들을 구현해보자]]></title>
-            <link>https://cree-devblog.net/blog/2023_04_12_SEO관련것들</link>
+            <link>https://cree-devblog.kro.kr/blog/2023_04_12_SEO관련것들</link>
             <guid>2023_04_12_SEO관련것들.mdx</guid>
             <pubDate>Wed, 12 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[seo에 관련된 사이트맵, 메타테그, rss등을 적용하고 서치콘솔과 서치 어드바이저에 등록해보자]]></description>
@@ -848,7 +848,7 @@ module.exports = {
             <category>rss</category>
             <category>jsonfeed</category>
             <category>search console</category>
-            <enclosure url="https://cree-devblog.net/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
+            <enclosure url="https://cree-devblog.kro.kr/images/그냥크리.jpeg" length="0" type="image/jpeg"/>
         </item>
     </channel>
 </rss>

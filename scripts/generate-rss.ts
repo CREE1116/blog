@@ -19,7 +19,7 @@ const feed = new Feed({
   id: metadata.siteUrl,
   link: metadata.siteUrl,
   language: "ko",
-  image: `${metadata.siteUrl}/images/그냥크리.jpeg`,
+  image: `${metadata.siteUrl}/images/normal-cree.jpg`,
   copyright: `All rights reserved since 2023-03-29, ${master.name}`,
   generator: "generate-rss",
   feedLinks: {

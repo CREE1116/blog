@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://cree-devblog.net</id>
+    <id>https://cree-devblog.kro.kr</id>
     <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
-    <updated>2023-04-13T13:45:00.524Z</updated>
+    <updated>2024-03-20T02:49:07.596Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Cree</name>
         <email>leejongmin774@gmail.com</email>
-        <uri>https://cree-devblog.net</uri>
+        <uri>https://cree-devblog.kro.kr</uri>
     </author>
-    <link rel="alternate" href="https://cree-devblog.net"/>
-    <link rel="self" href="https://cree-devblog.net/rss/rss-atom.xml"/>
+    <link rel="alternate" href="https://cree-devblog.kro.kr"/>
+    <link rel="self" href="https://cree-devblog.kro.kr/rss/rss-atom.xml"/>
     <subtitle>간단한 개발을 하는 크리의 블로그 입니다</subtitle>
-    <logo>https://cree-devblog.net/images/그냥크리.jpeg</logo>
+    <logo>https://cree-devblog.kro.kr/images/normal-cree.jpg</logo>
     <rights>All rights reserved since 2023-03-29, Cree</rights>
     <entry>
         <title type="html"><![CDATA[첫 글]]></title>
         <id>2023_03_29_첫글.mdx</id>
-        <link href="https://cree-devblog.net/blog/2023_03_29_첫글"/>
+        <link href="https://cree-devblog.kro.kr/blog/2023_03_29_첫글"/>
         <updated>2023-03-29T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[블로그 제작후 첫 소감]]></summary>
         <content type="html"><![CDATA[
@@ -39,20 +39,20 @@
         <author>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </author>
         <category label="블로그" term="Technologies"/>
         <category label="첫글" term="Technologies"/>
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </contributor>
     </entry>
     <entry>
         <title type="html"><![CDATA[ProgressBar + Comment 구현]]></title>
         <id>2023_03_30_ProgressBar+Comment.mdx</id>
-        <link href="https://cree-devblog.net/blog/2023_03_30_ProgressBar+Comment"/>
+        <link href="https://cree-devblog.kro.kr/blog/2023_03_30_ProgressBar+Comment"/>
         <updated>2023-03-30T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[스크롤에 따른 Progress Bar와 giscus 댓글 기능 구현]]></summary>
         <content type="html"><![CDATA[
@@ -216,7 +216,7 @@ export default Comment;
         <author>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </author>
         <category label="Next.js" term="Technologies"/>
         <category label="React" term="Technologies"/>
@@ -227,13 +227,13 @@ export default Comment;
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </contributor>
     </entry>
     <entry>
         <title type="html"><![CDATA[썸네일, 태그, 다크모드 구현(1)]]></title>
         <id>2023_04_05_썸네일, 태그,다크모드 구현(1).mdx</id>
-        <link href="https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)"/>
+        <link href="https://cree-devblog.kro.kr/blog/2023_04_05_썸네일, 태그,다크모드 구현(1)"/>
         <updated>2023-04-05T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></summary>
         <content type="html"><![CDATA[
@@ -396,7 +396,7 @@ export default Togglebtn;
         <author>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </author>
         <category label="tailwindcss" term="Technologies"/>
         <category label="next.js" term="Technologies"/>
@@ -406,13 +406,13 @@ export default Togglebtn;
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </contributor>
     </entry>
     <entry>
         <title type="html"><![CDATA[썸네일, 태그, 다크모드 구현(2)]]></title>
         <id>2023_04_05_썸네일, 태그,다크모드 구현(2).mdx</id>
-        <link href="https://cree-devblog.net/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)"/>
+        <link href="https://cree-devblog.kro.kr/blog/2023_04_05_썸네일, 태그,다크모드 구현(2)"/>
         <updated>2023-04-05T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[tailwindcss를 통한 다크모드와 화면에 고정되어있는 레이아웃, 블로그 페이지에서 볼수있는 썸네일을 구현]]></summary>
         <content type="html"><![CDATA[
@@ -637,7 +637,7 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <author>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </author>
         <category label="tailwindcss" term="Technologies"/>
         <category label="next.js" term="Technologies"/>
@@ -647,13 +647,13 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </contributor>
     </entry>
     <entry>
         <title type="html"><![CDATA[SEO에 관련된 것들을 구현해보자]]></title>
         <id>2023_04_12_SEO관련것들.mdx</id>
-        <link href="https://cree-devblog.net/blog/2023_04_12_SEO관련것들"/>
+        <link href="https://cree-devblog.kro.kr/blog/2023_04_12_SEO관련것들"/>
         <updated>2023-04-12T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[seo에 관련된 사이트맵, 메타테그, rss등을 적용하고 서치콘솔과 서치 어드바이저에 등록해보자]]></summary>
         <content type="html"><![CDATA[
@@ -875,7 +875,7 @@ module.exports = {
         <author>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </author>
         <category label="SEO" term="Technologies"/>
         <category label="next.js" term="Technologies"/>
@@ -887,7 +887,7 @@ module.exports = {
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
-            <uri>https://cree-devblog.net</uri>
+            <uri>https://cree-devblog.kro.kr</uri>
         </contributor>
     </entry>
 </feed>
