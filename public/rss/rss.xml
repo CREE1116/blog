@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
-        <link>https://cree-devblog.net</link>
+        <link>https://cree-devblog.kro.kr</link>
         <description>간단한 개발을 하는 크리의 블로그 입니다</description>
         <lastBuildDate>Thu, 13 Apr 2023 13:45:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>ko</language>
         <image>
             <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
-            <url>https://cree-devblog.net/images/그냥크리.jpeg</url>
-            <link>https://cree-devblog.net</link>
+            <url>https://cree-devblog.kro.kr/images/그냥크리.jpeg</url>
+            <link>https://cree-devblog.kro.kr</link>
         </image>
         <copyright>All rights reserved since 2023-03-29, Cree</copyright>
         <item>
