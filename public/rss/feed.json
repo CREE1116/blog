@@ -129,6 +129,38 @@
                 "블로그이전",
                 "소스코드 공개"
             ]
+        },
+        {
+            "id": "A Comprehensive Study on Quantization Techniques for Large Language Models.mdx",
+            "content_html": "\n### 0. 읽은 이유\n\n양자화에 대한 기본적인 이해를 얻기 위해\n\n---\n\n### 1. 논문 정보\n\n- **저자:** Jiedong Lang, Zhehao Guo, Shuyu Huang\n- **학술지/학회:** IEEE\n- **발표 연도:** 2024\n- **DOI (Digital Object Identifier):** [10.1109/ICAIRC64177.2024.10899941](https://doi.org/10.1109/ICAIRC64177.2024.10899941)\n\n---\n\n### 2. 서론\n\n- **연구 배경 및 중요성:** 지금의 llm과같은 ai는 너무나 거대하다. 이것은 거대한 컴퓨팅 파워, 막대한 에너지를 요구하기에 iot, 임베디드, 모바일등에 이식하기 어렵다. 그렇기에 이것을 해소하기위한 양자화에 대한 포괄적인 정리를 해보고자 한다.\n- **주요 연구 질문 또는 목표:** 양자화는 무엇이며 어떤 방식들이 있나.\n- **리뷰어의 첫인상 (간략 요약):** 레포트같은 느낌의 글\n\n---\n\n### 3. 본론\n\n#### 3.1 내용 요약\n\n양자화는 반올림같은거다. 모델에 있는 가중치를 FF32 -> INT8로 바꾸는것 (8비트 양자화) 처럼 아에 변수의 크기 자체를 줄여 용량을 줄이고, 계산을 용이하게 하는 기법이다.\n\n##### 방법론\n\n1. Range Mapping\n   1. 그러니까 양자화를 얼만큼 할거냐, 8비트 양자화 에서 8비트가 이거\n   2. Affine Quantization\n      1. 원본 파라미터 W를 양자화된 Wq로 바꾸는 고전적 방식\n      2. ![img](/postImages/스크린샷 2025-04-29 오후 12.57.46.png)\n      3. S => 스케일링 펙터, Z => 제로포인트 , b = 비트수, α,β = 수 표현 범위\n   3. Scale Quantization\n      1. ![img](/postImages/스크린샷 2025-04-29 오후 1.04.59.png)\n      2. ![img](/postImages/images/스크린샷 2025-04-29 오후 1.05.09.png)\n      3. 제로포인트가 없다. 그렇기 때문에 원래의 x와 같이 0이 제로포인트고, 수의 범위도 α, -α 이다.\n2. Quantization Granularity\n   1. 위에서의 제로포인트, 스케일링 펙터를 **양자화 파라미터** 라고 하고, Quantization Granularity는 어떻게 범위를 나누어 양자화 파라미터를 적용할지이다.\n   2. Per-layer Quantization\n      1. 레이어 별로 다른 양자화 파라미터 / 같은 레이어는 같은 양자화 파라미터를 공유한다.\n      2. 성능이 많이 떨어진다.\n   3. Per-channel Quantization\n      1. 채널별로 다른 양자화 파라미터\n      2. 채널이란 CNN에서 많이 쓰는 용어인것같은데, 쭈욱 같이 계산하게 되는 원소들의 묶음이라고 보면 될것같다.\n      3. 성능은 당연 Per-layer보다 앞서지만, 계산의 복잡도가 증가한다.\n3. Quantization Calibration\n   1. 양자화를 하게 되면, 수의 표현볌위가 줄어듦에따라 자연스럽게 가중치가 조정되는데, Quantization Calibration은 이 조정이 일어나기 전에, 최적의 값 범위를 찾는다(좀 더 자세하면 좋을텐데 뭘 찾는건데)\n   2. Global Calibration\n      1. 전체 데이터의 최대값과 최소값을 사용하여 단순하게 변환하지만 정확도가 떨어질 수 있다.\n   3. Max Calibration\n      1. 실제 데이터의 최대값을 사용하여 양자화 손실을 완화한다.\n   4. KL Divergence Calibration\n      1. 원본 데이터와 양자화된 데이터의 분포 차이(KL 발산)를 최소화하는 스케일링 팩터를 찾아 정보 손실을 줄인다.\n   5. Percentile Calibration\n      1. 데이터 분포의 특정 백분위수(예: 99.99% 또는 99.999%)를 기준으로 범위를 좁혀 양자화 성능을 향상시킨다.\n4. Quantization Techniques\n   1. Post-Training Quantization, PTQ\n      1. 훈련이 끝난 모델을 가지고 양자화를 한다.\n         1. 동적: 모델을 사용할때 양자화\n         2. 정적: 미리 양자화를 해놓고 저장.\n   2. Quantization-Aware Training, QAT\n      1. 가상으로 양자화를 하고, 학습을 진행해서 모델이 양자화에 적응하도록 하는 방법.\n      2. 양자화가 된것처럼 값을 제한하고(실제로는 높은 정밀도) 변형한 뒤, 트레이닝데이터를 그대로 사용하여 학습시킨다.\n      3. 그렇게 모델이 가상으로 양자화된 값을 가지게 되면, 그 다음에 양자화한다.\n   3. Weight Quantization\n      1. 가중치만 양자화하고 활성화한수 값은 원래 정밀도를 유지한다.\n   4. Activation-Aware Weight Quantization, AWQ\n      1. 활성화 크기를 기반으로 중요한 가중치를 식별하여 전체 정밀도로 유지하고, 덜 중요한 가중치만 양자화하여 정확도 손실을 최소화하면서 계산 비용을 낮춘다.\n   5. Attention-Aware Weight Quantization\n      1. 헤시안 트레이스(?)를 사용하여 가중치 행렬의 중요도를 결정하고, 어텐션 점수에 따라 중요한 가중치는 높은 비트 정밀도로, 덜 중요한 가중치는 낮은 비트 정밀도로 할당하는 혼합 정밀도 방식을 사용한다.\n\nLLM에서는 주로 PTQ와 QAT가 사용된다.\n\n- PTQ는 구현이 간단하고 배포가 빠르지만 상당한 정확도 손실이 발생할 수 있다.\n- QAT는 훈련 중 양자화를 시뮬레이션하여 모델이 낮은 정밀도에 적응하게 하므로 더 정확하지만, 추가훈련이 필요하다.\n\n##### 결론\n\n다양한 양자화 기법의 성능은 양자화 정밀도에 따라 달라진다.\nGPTQ는 4비트 정밀도에서 최적의 성능을 보이지만 3비트에서는 성능이 저하됩니다\nLLM-QAT는 특정 혼합 정밀도 설정(예: 4비트 가중치, 4비트 KV 캐시, 8비트 활성화)에서 더 나은 정확도를 보여준다.\n따라서 양자화 기법의 성능을 최대화하기 위해 적절한 정밀도 설정을 신중하게 선택해야 합니다.\n\n#### 3.2 강점 분석\n\n- 솔직히 별로.. 인터넷에서 긁어모을수 있는 지식의 나열이고, 자세하지도 않고, 연구도 없고, 제일 연구처럼 보이는 파트는 다른 논문에서 긁어온거다\n- 그나마 좋은점은, 기본적인 지식이 없는상태에서 읽었을때 이런게 있구나 하고 훝어보기엔 좋다.\n\n#### 3.3 약점 및 개선점 분석\n\n---\n\n### 4. 결론\n\n- 이게 어떻게 올라갔지\n\n---\n",
+            "url": "https://cree-devblog.kro.kr/blog/A Comprehensive Study on Quantization Techniques for Large Language Models",
+            "title": "A Comprehensive Study on Quantization Techniques for Large Language Models",
+            "image": "https://cree-devblog.kro.kr/images/그냥크리.jpeg",
+            "date_modified": "2025-04-29T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.kro.kr"
+            },
+            "tags": [
+                "논문",
+                "리뷰"
+            ]
+        },
+        {
+            "id": "All you need is Attention.mdx",
+            "content_html": "\n### 0. 읽은이유\n\n일단 llm관련해서 연구를 하고싶으면, 최신 llm에 대해 어느정도 알아야한다고 생각해서 읽기 시작함.\n\n---\n\n### 1. 논문 정보\n\n- **저자:** Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, Illia Polosukhin\n- **학술지/학회:** Advances in Neural Information Processing Systems 30\n- **발표 연도:** 2017\n- **DOI (Digital Object Identifier):**\n\n---\n\n### 2. 서론\n\n- **연구 배경 및 중요성:** 기존 seq2seq모델의 한계를 해결하기 위한 새로운 언어모델의 제안한다.\n- **주요 연구 질문 또는 목표:** CNN,RNN과 같은 신경망을 사용하지 않고,Attention 메커니즘만을 사용하여 만든 Transformer모델을 제안한다.\n- 시퀀셜하게 단어를 예측하던 기존모델에서 벗어나, 문맥 전체 단어들의 관계를 파악하여 결과를 생성하는 새로운 모델을 제안한다.\n- **리뷰어의 첫인상 (간략 요약):** 25년도에 읽고있기 때문에, 익숙해진 내용이라고는 생각하지만, 그당시 지금과 같은 llm이 많이 제안되지 않았던것을 생각하면, 당연 필수라고 생각되는 신경망을 제거하는게 얼마나 과감한 시도인지 알수있다.\n\n---\n\n### 3. 본론\n\n#### 3.1 내용 요약\n\n![[images/스크린샷 2025-04-29 오전 9.55.54.png]]\n트렌스포머 아키텍처의 구조는 다음과같이, 인코더, 디코더로 나뉜다.\n\n다음은 해당 도식에서 보이는 함수들의 대한 설명이다.\n\n1. Multi-Head Attention\n   1. 입력 벡터를 을 h개의 각기 다른 행렬의 곱을 통해 h개로 나눈뒤 각각 어텐션 연산을 수행한 뒤 concat연산을 수행한다. 그 뒤 다시 행렬곱을 통해, 차원을 입력벡터와 동일하게 한다.\n   2. !![img](/postImages/스크린샷 2025-04-29 오전 10.51.47.png)\n   3. 입력에 적용되는 행렬곱의 W는 모두 **학습가능**한 값 이기 때문에, 단어에 들어있는 어려가지의 정보(감정의정도, 문맥, 화자, 의미등등)을 나누어 학습할수있다. 또한 병렬처리가 가능하기때문에 GPU를 사용하면 학습 시간을 줄일수있다.\n2. Feed Forward Network\n   1. 선형변환 - 활성화함수(ReLU) - 선형변환 의 형태로 차원을 대폭 늘려, 의미를 풍부하게 한다(?)\n   2. 선형변환에 들어가는 가중치 와 편향 모두 **학습가능**한 값이다.\n3. Embedding\n   1. 단어를 벡터로 변환하는 함수다. 임베딩또한 **학습가능**하지만, 위의 함수들처럼 학습되는것이 아닌, 이미 학습이 끝난 모델을 사용한다.\n   2. 출력/입력 임베딩과 확률출력단에 있는 선형변환은 동일한 가중치를 공유하여, 모델크기를 줄이고, 혼동을 줄인다.\n\n다음은 해당 논문에서 어텐션을 활용하는 3가지 방식이다.\n\n1. Encoder-Decoder Attention\n   1. 어텐션의 쿼리는 디코더에서, 키와 벨류는 인코더에서 가져온다.\n2. Self-Attention\n   1. Encoder-Encoder\n      1. 모든 쿼리, 키, 벨류는 이전 레이어의 인코더에서 받아온다.\n   2. Decoder-Decoder\n      1. 모든 쿼리, 키, 벨류는 이전 레이어의 디코더에서 받아온다.\n      2. 다만 디코더의 경우 아직 생성되지 않은 오른쪽의 위치한 단어가 현제 단어에 미치는 영향을 막아야한다.(need to prevent leftward information flow)\n      3. 그렇기때문에 이 경우, 현제 단어 우측에 위치하는 단어에 대하여 소프트맥스 함수를 거칠때 모두 -∞으로 치환한다.(이 경우 소프트맥스를 거치면 확률이 0에 수렴하기 때문에)(Masking)\n\n다음은 셀프 어텐션을 사용하는 이유이다.\n![img](/postImages/스크린샷 2025-04-29 오전 11.40.47.png)\n\n1. 계산 복잡성\n   1. self-attention의 계산복잡성은 O(n^2 _ d), 제한된 self-attention은 O(r _ n _ d) 로 CNN과, RNN의 핵심연산인 Convolutional O(k _ n _ d^2) ,Recurrent O(n _ d^2) 와 비교해 쉬운 연산이다\n2. 병렬화 가능성\n   1. self-attention은 각 단어에따라 독립적인 연산이기때문에 병렬화가 가능하다.\n3. 장거리 의존성간 경로길이(Path Length for Long-Range Dependencies)(?)\n   1. 단 한번의 연산으로 모든 단어와의 관계가 연결된다.\n\n#### 3.2 강점 분석\n\n- **참신성 및 독창성:** 기존의 신경망 기반의 언어모델의 단점을 해소하고, 성능면에서도 더 나은 성과\n- **이론적 기여도:** 25년 현제 기준 거의 대부분의 llm의 기반논문\n\n#### 3.3 약점 및 개선점 분석\n\n1. 전반적인 자연어 처리를 목적으로 아키텍처이지만, 벤치마크는 번역에 대한 벤치마크만 있는점\n2. 개인적으로 아쉬운건.. 기존 RNN, CNN, seq2seq에 대한 내용은 너무 없다.. 읽기 힘들다.\n\n---\n\n### 4. 결론\n\n- **종합 평가:** 향후 자연어처리 모델에 지대한 영향을 준 논문으로, 독창적이고 과감한 접근방식(NN에서의 탈피), 기반지식이 있다면 읽는것조차 명쾌하고 좋은 논문\n\n---\n",
+            "url": "https://cree-devblog.kro.kr/blog/All you need is Attention",
+            "title": "All you need is Attention",
+            "image": "https://cree-devblog.kro.kr/images/그냥크리.jpeg",
+            "date_modified": "2025-04-29T00:00:00.000Z",
+            "author": {
+                "name": "Cree",
+                "url": "https://cree-devblog.kro.kr"
+            },
+            "tags": [
+                "논문",
+                "리뷰"
+            ]
         }
     ]
 }
