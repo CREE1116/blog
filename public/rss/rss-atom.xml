@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cree-devblog.kro.kr</id>
     <title>[크리의 끄적끄적] 크리의 끄적끄적</title>
-    <updated>2024-03-20T02:49:07.596Z</updated>
+    <updated>2025-04-29T05:10:49.300Z</updated>
     <generator>generate-rss</generator>
     <author>
         <name>Cree</name>
@@ -709,7 +709,7 @@ const metadata = {
 	description: "간단한 개발을 하는 크리의 블로그 입니다",
 	site_name: "[크리의 끄적끄적]",
 	author: "Cree",
-	siteUrl: "https://cree-devblog.net",
+	siteUrl: "https://cree-devblog.kro.kr",
 	email: 이거 왜적어놨더라,
 };
 
@@ -743,7 +743,7 @@ export default metadata;
 
 이와 유사하게 `ATOM` 도 있는데 이 역시 비슷하다.
 
-현제 나의 블로그의 rss는 [https://cree-devblog.net/rss/rss.xml](https://cree-devblog.net/rss/rss.xml)로 들어가면 볼수있다.
+현제 나의 블로그의 rss는 [https://cree-devblog.kro.kr/rss/rss.xml](https://cree-devblog.kro.kr/rss/rss.xml)로 들어가면 볼수있다.
 
 이 rss를 매번 내가 작성할수는 없기 때문에 feed라는 플러그인? 페키지를 사용했는데
 
@@ -884,6 +884,41 @@ module.exports = {
         <category label="rss" term="Technologies"/>
         <category label="jsonfeed" term="Technologies"/>
         <category label="search console" term="Technologies"/>
+        <contributor>
+            <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
+            <uri>https://cree-devblog.kro.kr</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[티스토리 개설]]></title>
+        <id>2024_05_03 티스토리 개설.mdx</id>
+        <link href="https://cree-devblog.kro.kr/blog/2024_05_03 티스토리 개설"/>
+        <updated>2024-05-03T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[티스토리 블로그 개설 공지 및 코드 공개]]></summary>
+        <content type="html"><![CDATA[
+---
+
+next.js로 이 블로그를 만들고 호스팅도 하고 해봤지만, 글을 올리는것이나 이것저것 번거로운게 많아서 티스토리로 이전하려고 합니다.
+
+기왕 옮기는 김에 이 블로그 소스코드도 공개하도록 하겠습니다.
+
+어차피 외부 api쓰는것도 없고하니 씹고 뜯고 맛보고 즐겨주시면 될것 같습니다.
+
+[블로그 소스코드 깃헙 링크](https://github.com/CREE1116/blog)
+
+[새로 개설한 티스토리](https://cree-devblog.tistory.com/)
+]]></content>
+        <author>
+            <name>Cree</name>
+            <email>leejongmin774@gmail.com</email>
+            <uri>https://cree-devblog.kro.kr</uri>
+        </author>
+        <category label="blog" term="Technologies"/>
+        <category label="tistory" term="Technologies"/>
+        <category label="티스토리" term="Technologies"/>
+        <category label="블로그이전" term="Technologies"/>
+        <category label="소스코드 공개" term="Technologies"/>
         <contributor>
             <name>Cree</name>
             <email>leejongmin774@gmail.com</email>
